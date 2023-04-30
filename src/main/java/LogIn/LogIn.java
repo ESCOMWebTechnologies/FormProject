@@ -43,7 +43,7 @@ public class LogIn extends HttpServlet {
                     if(responses != null){
                         response.getWriter().println("OK");
                     }else{
-                        response.getWriter().println("<h1>"+username+"</h1>");
+                        response.getWriter().println("No user found");
                     }
                 }
             }else{
