@@ -25,7 +25,6 @@ class LogIn extends React.Component {
                 let exist = resp.includes("OK");
                 if(exist){
                     this.setState({condition:true});
-                    alert("Welcome "+user);
                 }else{
                     this.setState({ condition: false});
                     document.getElementById("user").value = "";
