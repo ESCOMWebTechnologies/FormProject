@@ -9,6 +9,11 @@ class Menu extends React.Component {
                     <button type="button" class="btn btn-close" aria-label="Close"></button>
                 </div>
                 <h1>Welcome!</h1>
+                <ul>
+                    <li>Bisogno Gandarilla Ricardo</li>
+                    <li>Ruiz Salgado Nayeli Adriana</li>
+                    <li>Ulrich Tamayo Daniel</li>
+                </ul>
             </div>
         );
     }
