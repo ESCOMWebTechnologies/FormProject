@@ -32,25 +32,45 @@ public class LogIn extends HttpServlet {
     private ApplicationDatabaseContext _context;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
         _context = new ApplicationDatabaseContext();
         Boolean connected = _context.CreateConnection();
-        if(connected){
-            response.setContentType("text/html;charset=UTF-8");
+        String formatJson = "{\"%s\":\"%s\"}";
+        PrintWriter out = response.getWriter();
+        if(connected){  
             String username = request.getParameter("username"), password = request.getParameter("password");
             if(username != null && password != null){
-                try (PrintWriter out = response.getWriter()) {
+                try {
                     ResultSet responses = _context.FirstOrDefault("", "users", String.format("username='%s' and password='%s';",username,password));
                     if(responses != null){
-                        response.getWriter().println("OK");
+                        out.println(String.format(formatJson,"response","ok"));
+                        out.println(String.format(formatJson,"statusCode","1"));
+                        out.println(String.format(formatJson,"message",""));
+                        out.flush();
                     }else{
-                        response.getWriter().println("No user found");
+                        out.println(String.format(formatJson,"response","fail"));
+                        out.println(String.format(formatJson,"statusCode","2"));
+                        out.println(String.format(formatJson,"message","User not found"));
+                        out.flush();
                     }
+                }catch(Exception ex){
+                    out.println(String.format(formatJson,"response","fail"));
+                    out.println(String.format(formatJson,"statusCode","3"));
+                    out.println(String.format(formatJson,"message",ex));
+                    out.flush();
                 }
             }else{
-                response.getWriter().println(username);
+                out.println(String.format(formatJson,"response","fail"));
+                out.println(String.format(formatJson,"statusCode","2"));
+                out.println(String.format(formatJson,"message","User not found"));
+                out.flush();
             }
         }else{
-            response.getWriter().println("<h1>"+_context.GetLastError()+"</h1>");
+            out.println(String.format(formatJson,"response","fail"));
+            out.println(String.format(formatJson,"statusCode","3"));
+            out.println(String.format(formatJson, _context.GetLastError()));
+            out.flush();
         }
         
     }

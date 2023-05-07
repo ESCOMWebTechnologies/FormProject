@@ -13,7 +13,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>LogIn</servlet-name>
-        <url-pattern>/LogInForm</url-pattern>
+        <url-pattern>/LoginForm</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>MainMenu</servlet-name>
