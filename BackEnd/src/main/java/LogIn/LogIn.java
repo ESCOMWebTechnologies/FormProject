@@ -43,10 +43,11 @@ public class LogIn extends HttpServlet {
             if(username != null && password != null){
                 try {
                     ResultSet responses = _context.FirstOrDefault("", "users", String.format("username='%s' and password='%s';",username,password));
+                    User user = _context.GetUser(responses);
                     if(responses != null){
                         out.println(String.format(formatJson,"response","ok"));
                         out.println(String.format(formatJson,"statusCode","1"));
-                        out.println(String.format(formatJson,"message",""));
+                        out.println(String.format(formatJson,"message",user.GetAllUserInformation()));
                         out.flush();
                     }else{
                         out.println(String.format(formatJson,"response","fail"));

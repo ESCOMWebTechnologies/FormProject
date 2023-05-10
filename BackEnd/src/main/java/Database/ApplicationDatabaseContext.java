@@ -107,4 +107,17 @@ public class ApplicationDatabaseContext {
         }
         return null;
     }
+    public User GetUser(ResultSet response){
+        try{
+            User user = new User(response.getInt(1));
+            user.SetUsername(response.getString(2));
+            user.SetPassword(response.getString(3));
+            user.SetName(response.getString(4));
+            user.SetSurname(response.getString(5));
+            user.SetImagePath(response.getString(6));
+            return user;
+        }catch(Exception ex){
+            return new User();
+        }
+    }
 }
