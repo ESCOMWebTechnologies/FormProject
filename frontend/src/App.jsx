@@ -5,7 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "../scss/styles.scss";
 import * as bootstrap from "bootstrap";
 
-import {DataContextProvider } from "./Context/DataContext.jsx";
+import { DataContextProvider } from "./Context/DataContext.jsx";
 import Home from "./Components/Home.jsx";
 import ErrorPage from "./Components/ErrorPage.jsx";
 import SignIn from "./Components/SignIn.jsx";
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById("App")).render(
   <React.StrictMode>
     <DataContextProvider>
-      <RouterProvider router={router} />
+        <RouterProvider router={router} />
     </DataContextProvider>
   </React.StrictMode>
 );

@@ -6,7 +6,12 @@ import {
   DropdownMenu,
   DropdownToggle,
 } from "reactstrap";
-import { BsFillHouseDoorFill } from "react-icons/bs";
+import {
+  BsFillHouseDoorFill,
+  BsFillSunFill,
+  BsFillMoonFill,
+  BsFillBrightnessAltHighFill,
+} from "react-icons/bs";
 import { GrFacebookOption, GrTwitter, GrInstagram } from "react-icons/gr";
 
 import { DataContext } from "../Context/DataContext.jsx";
@@ -16,9 +21,13 @@ function SignIn() {
   const [password, setPassword] = useState("");
   const { loginUser } = useContext(DataContext);
 
+  const [dropDawn2, setDropDawn2] = useState(false);
   const [dropDawn, setDropDawn] = useState(false);
   const openDropDawn = () => {
     setDropDawn(!dropDawn);
+  };
+  const openDropDawn2 = () => {
+    setDropDawn2(!dropDawn2);
   };
 
   const handleSubmit = (e) => {
@@ -81,11 +90,41 @@ function SignIn() {
                       Sign-in
                     </Link>
                   </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    <Link to={"/SignOut"} className="dropdown-item">
-                      Sign-out
-                    </Link>
+                </DropdownMenu>
+              </Dropdown>
+            </li>
+            <li>
+              <Dropdown
+                isOpen={dropDawn2}
+                toggle={openDropDawn2}
+                className="flex-shrink-0 dropdown ms-1"
+              >
+                <DropdownToggle
+                  className="d-block link-dark text-decoration-none dropdown-toggle show"
+                  style={{ backgroundColor: "white", border: "0" }}
+                >
+                  <BsFillBrightnessAltHighFill
+                    className="rounded-circle"
+                    size="32"
+                  />
+                </DropdownToggle>
+                <DropdownMenu className="dropdown-menu text-small shadow">
+                  <DropdownItem header>Theme</DropdownItem>
+                  <DropdownItem
+                    className="dropdown-item d-flex align-items-center"
+                    data-bs-theme-value="light"
+                    aria-pressed="false"
+                  >
+                    <BsFillSunFill className="bi me-2 opacity-50 theme-icon" />
+                    Light
+                  </DropdownItem>
+                  <DropdownItem
+                    className="dropdown-item d-flex align-items-center"
+                    data-bs-theme-value="dark"
+                    aria-pressed="false"
+                  >
+                    <BsFillMoonFill className="bi me-2 opacity-50 theme-icon" />
+                    Dark
                   </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
