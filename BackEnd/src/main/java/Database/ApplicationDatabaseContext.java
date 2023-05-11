@@ -117,7 +117,40 @@ public class ApplicationDatabaseContext {
             user.SetImagePath(response.getString(6));
             return user;
         }catch(Exception ex){
+            _lastError = ex.getMessage();
             return new User();
+        }
+    }
+    public Boolean RegisterUser(String name, String surname, String username, String password){
+        try{
+            if(username != null && password != null){
+                ResultSet set = FirstOrDefault("", "users", String.format("username='%s' and password='%s';",username,password));
+                if(set == null){
+                    String query = "insert into * (,,,) values (?,?,?,?)";
+                    query = String.format(query,username,password,name,surname);
+                    PreparedStatement statement = _connection.prepareStatement(query);
+                    statement.setString(1, username);
+                    statement.setString(2, password);
+                    statement.setString(3, name);
+                    statement.setString(4, surname);
+                    int rowsAffected = statement.executeUpdate();
+                    if(rowsAffected > 0){
+                        return true;
+                    } else {
+                        _lastError = "No user registered";
+                        return false;
+                    }
+                }else{
+                    _lastError = "User registered";
+                    return false;
+                }
+            }else{
+                _lastError = "No user and no password registered";
+                return false;
+            }
+        }catch(Exception ex){
+            _lastError = ex.getMessage();
+            return true;   
         }
     }
 }
