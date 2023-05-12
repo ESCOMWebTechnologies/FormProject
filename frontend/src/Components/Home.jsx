@@ -1,29 +1,43 @@
-import React, { useState} from "react";
-import { Link } from "react-router-dom";
+//Importacion del componente React y useState
+import React, { useState } from "react";
+
+//Importacion del componente Link que sirve para redirigir a los demas componentes con el browserRouter
+import { Link, Outlet } from "react-router-dom";
+
+//Importacion de componentes para realizar un menu desplegable
 import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
 } from "reactstrap";
+
+//Importacion de iconos de Bootstrap
 import {
   BsFillHouseDoorFill,
   BsFillSunFill,
   BsFillMoonFill,
   BsFillBrightnessAltHighFill,
 } from "react-icons/bs";
+
+//Importacion de iconos de Grommet-Icons
 import { GrFacebookOption, GrTwitter, GrInstagram } from "react-icons/gr";
 
+//Se crea la funcion Home
 function Home() {
-
+  //Se crean los estados del menu desplegable para saber si esta abierto o cerrado
   const [dropDawn, setDropDawn] = useState(false);
   const [dropDawn2, setDropDawn2] = useState(false);
+
+  //Se crean las funciones para invertir los valores de abierto y cerrado del menu desplegable
   const openDropDawn = () => {
     setDropDawn(!dropDawn);
   };
   const openDropDawn2 = () => {
     setDropDawn2(!dropDawn2);
   };
+
+  //cuando se manda a llaamar al componente Home se retorna la pagina web
   return (
     <>
       <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
@@ -33,7 +47,7 @@ function Home() {
         <div className="col-md-3 text-end">
           <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
             <li>
-              <Link to={"/"} className="nav-link text-secondary">
+              <Link to={"/"} className="nav-link text-secondary" >
                 <BsFillHouseDoorFill
                   className="bi d-block mx-auto mb-1"
                   size="25"
@@ -61,14 +75,14 @@ function Home() {
                 </DropdownToggle>
                 <DropdownMenu className="dropdown-menu text-small shadow">
                   <DropdownItem header>Profile</DropdownItem>
-                  <DropdownItem>
-                    <Link to={"/CreateAccount"} className="dropdown-item">
-                      Sign-up
+                  <DropdownItem >
+                    <Link to={"/SignUp"} className="dropdown-item">
+                      Sign Up
                     </Link>
                   </DropdownItem>
                   <DropdownItem>
                     <Link to={"/SignIn"} className="dropdown-item">
-                      Sign-in
+                      Sign In
                     </Link>
                   </DropdownItem>
                 </DropdownMenu>
@@ -91,13 +105,23 @@ function Home() {
                 </DropdownToggle>
                 <DropdownMenu className="dropdown-menu text-small shadow">
                   <DropdownItem header>Theme</DropdownItem>
-                  <DropdownItem className="dropdown-item d-flex align-items-center" data-bs-theme-value="light" aria-pressed="false">
-                      <BsFillSunFill className="bi me-2 opacity-50 theme-icon" />
-                      Light
+                  <DropdownItem
+                    className="dropdown-item d-flex align-items-center"
+                    data-bs-theme-value="light"
+                    aria-pressed="false"
+                    disabled
+                  >
+                    <BsFillSunFill className="bi me-2 opacity-50 theme-icon" />
+                    Light (Disabled)
                   </DropdownItem>
-                  <DropdownItem className="dropdown-item d-flex align-items-center" data-bs-theme-value="dark" aria-pressed="false">
-                      <BsFillMoonFill className="bi me-2 opacity-50 theme-icon" />
-                     Dark
+                  <DropdownItem
+                    className="dropdown-item d-flex align-items-center"
+                    data-bs-theme-value="dark"
+                    aria-pressed="false"
+                    disabled
+                  >
+                    <BsFillMoonFill className="bi me-2 opacity-50 theme-icon" />
+                    Dark (Disabled)
                   </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
@@ -107,7 +131,7 @@ function Home() {
       </header>
 
       <article>
-        <div>Imagen de fondo y escritura</div>
+        <Outlet />
       </article>
 
       <footer className="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
@@ -132,4 +156,5 @@ function Home() {
   );
 }
 
+//Se exporta el componente Home
 export default Home;
