@@ -22,7 +22,7 @@ import Home from "./Components/Home.jsx";
 import ErrorPage from "./Components/ErrorPage.jsx";
 
 //Importacion del componente SignIn
-import SignIn from "./Components/SignIn.jsx";
+import LogIn from "./Components/LogIn.jsx";
 
 //Importacion del componente SignUp
 import SignUp from "./Components/SignUp.jsx";
@@ -35,14 +35,12 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "SignIn",
-        element: <SignIn />,
-        errorElement: <ErrorPage />,
+        path: "LogIn",
+        element: <LogIn />,
       },
       {
         path: "SignUp",
         element: <SignUp />,
-        errorElement: <ErrorPage />,
       },
     ],
   },

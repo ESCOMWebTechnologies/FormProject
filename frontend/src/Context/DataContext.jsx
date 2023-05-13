@@ -20,15 +20,48 @@ export function DataContextProvider(props) {
     setLastName(lastName);
     setUser(user);
     setPassword(password);
+    createAccount();
   }
 
   //Se crea la funcion signIn la cual sera la encargada de almacenar los datos ingresador por el usuario
   function signIn(user, password) {
     setUser(user);
     setPassword(password);
-    
+    signInSession();
     //Se retorna el valor true/false si los datos ingresados son correctos
     return true;
+  }
+
+  function createAccount() {
+    /*fetch("name"+"surname"+"username"+"password")
+    fetch()
+      .then((response) => response.text())
+      .then((usuario) => {
+        let ret = usuario.includes("yes");
+        if (ret) {
+          this.setState({ condition: true });
+          alert("USUARIO VALIDO");
+        } else {
+          this.setState({ condition: false });
+          alert("USUARIO NO VALIDO");
+        }
+      });*/
+  }
+
+  function signInSession() {
+    /*fetch("name"+"surname"+"username"+"password")
+    fetch()
+      .then((response) => response.text())
+      .then((usuario) => {
+        let ret = usuario.includes("yes");
+        if (ret) {
+          this.setState({ condition: true });
+          alert("USUARIO VALIDO");
+        } else {
+          this.setState({ condition: false });
+          alert("USUARIO NO VALIDO");
+        }
+      });*/
   }
 
   //Se retorna el componente ContextProvider con las funciones y parametros antes indicados

@@ -40,22 +40,22 @@ function Home() {
   //cuando se manda a llaamar al componente Home se retorna la pagina web
   return (
     <>
-      <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+      <header className="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-1 mb-1 border-bottom">
         <div className="col-md-3 mb-2 mb-md-0 ms-4">
-          <span className="fs-4">Easy Creator Forms</span>
+          <span className="fs-6">Easy Creator Forms</span>
         </div>
-        <div className="col-md-3 text-end">
-          <ul className="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-            <li>
+        <div className="col-md-6 text-end">
+          <ul className="nav col-12 col-md-auto mb-1 justify-content-end mb-md-0">
+            <li className="me-4">
               <Link to={"/"} className="nav-link text-secondary" >
                 <BsFillHouseDoorFill
                   className="bi d-block mx-auto mb-1"
-                  size="25"
+                  size="15"
                 />
-                Home
+                <small>Home</small>
               </Link>
             </li>
-            <li>
+            <li className="me-4">
               <Dropdown
                 isOpen={dropDawn}
                 toggle={openDropDawn}
@@ -68,12 +68,12 @@ function Home() {
                   <img
                     src="https://github.com/mdo.png"
                     alt="mdo"
-                    width="32"
-                    height="32"
+                    width="20"
+                    height="20"
                     className="rounded-circle"
                   />
                 </DropdownToggle>
-                <DropdownMenu className="dropdown-menu text-small shadow">
+                <DropdownMenu className="dropdown-menu text-small">
                   <DropdownItem header>Profile</DropdownItem>
                   <DropdownItem >
                     <Link to={"/SignUp"} className="dropdown-item">
@@ -81,14 +81,14 @@ function Home() {
                     </Link>
                   </DropdownItem>
                   <DropdownItem>
-                    <Link to={"/SignIn"} className="dropdown-item">
-                      Sign In
+                    <Link to={"/LogIn"} className="dropdown-item">
+                      Log In
                     </Link>
                   </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
             </li>
-            <li>
+            <li className="me-4">
               <Dropdown
                 isOpen={dropDawn2}
                 toggle={openDropDawn2}
@@ -100,7 +100,7 @@ function Home() {
                 >
                   <BsFillBrightnessAltHighFill
                     className="rounded-circle"
-                    size="32"
+                    size="20"
                   />
                 </DropdownToggle>
                 <DropdownMenu className="dropdown-menu text-small shadow">
@@ -141,14 +141,14 @@ function Home() {
           </span>
         </div>
         <ul className="nav col-md-4 justify-content-end list-unstyled d-flex">
-          <li className="me-3">
-            <GrTwitter className="bi" size="25" />
+          <li className="me-4">
+            <GrTwitter className="bi" size="15" />
           </li>
-          <li className="me-3">
-            <GrInstagram className="bi" size="25" />
+          <li className="me-4">
+            <GrInstagram className="bi" size="15" />
           </li>
-          <li className="me-3">
-            <GrFacebookOption className="bi " size="25" />
+          <li className="me-4">
+            <GrFacebookOption className="bi " size="15" />
           </li>
         </ul>
       </footer>

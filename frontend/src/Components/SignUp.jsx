@@ -10,6 +10,9 @@ import { DataContext } from "../Context/DataContext.jsx";
 //Importacion del componente useForm
 import { useForm } from "react-hook-form";
 
+//Importacion del componente Swal
+import Swal from "sweetalert2";
+
 //Se crea la funcion signUp
 function SignUp() {
   //Se importan los parametros y funciones necesarias para el signUp del contexto
@@ -28,22 +31,31 @@ function SignUp() {
   } = useForm();
 
   //Se crea una funcion para manejar el comportamiento del formuario
-  const onSubmit = (data) => {
+  const onSubmit = () => {
     //Se verifica que la contraseña y la contraseña de confirmacion sean iguales
     if (password === password2) {
-        //Se almacenan los datos del usuario, se limpia el formulario y se lanza un mensaje de alerta
-        signUp(name, lastName, user, password);
-        setName("");
-        setLastName("");
-        setUser("");
-        setPassword("");
-        setPassword2("");
-        alert("Succes create account...");
-    } else {
-      //En caso de no ser iguales se resetean las contraseñas y se despliega una alerta
-      alert("The passwords didn't match...");
+      //Se almacenan los datos del usuario, se limpia el formulario y se lanza un mensaje de alerta
+      signUp(name, lastName, user, password);
+      setName("");
+      setLastName("");
+      setUser("");
       setPassword("");
       setPassword2("");
+      Swal.fire({
+        title: "<strong>Account registered</strong>",
+        icon: "Succes",
+        html: "The current account <b>registered</b> succesfully.",
+      });
+
+    } else {
+      //En caso de no ser iguales se resetean las contraseñas y se despliega una alerta
+      setPassword("");
+      setPassword2("");
+      Swal.fire({
+        title: "<strong>Oops!</strong>",
+        icon: "warning",
+        html: "The passwords <b>do not</b> match.",
+      });
     }
   };
 
