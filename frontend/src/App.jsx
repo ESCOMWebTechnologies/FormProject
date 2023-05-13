@@ -30,7 +30,8 @@ import SignUp from "./Components/SignUp.jsx";
 //Se crea el objeto BrowserRouter
 const router = createBrowserRouter([
   {
-    path: "/",
+    //path: "/",
+    path: "/FormProject/",
     element: <Home />,
     errorElement: <ErrorPage />,
     children: [

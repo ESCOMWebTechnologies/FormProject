@@ -46,7 +46,6 @@ function SignUp() {
         icon: "Succes",
         html: "The current account <b>registered</b> succesfully.",
       });
-
     } else {
       //En caso de no ser iguales se resetean las contraseñas y se despliega una alerta
       setPassword("");
@@ -61,191 +60,201 @@ function SignUp() {
 
   //cuando se manda a llaamar al componente signUp se retorna la pagina web
   return (
-    <div
-      className="modal modal-sheet position-static d-block bg-body-secondary p-2 py-md-2"
-      tabIndex="-1"
-      role="dialog"
-    >
+    <div className="modal modal-sheet position-static d-block">
       <Outlet />
-      <div className="modal-dialog" role="document">
+      <div className="modal-dialog">
         <div className="modal-content rounded-4 shadow">
-          <div className="modal-header p-5 pb-4 border-bottom-0">
+          <div className="p-5 pb-4 border-bottom-0">
             <h1 className="fw-bold mb-0 fs-2">Sign up for free</h1>
           </div>
-          <div className="modal-body p-5 pt-0">
+          <div className="p-5 pt-0">
             <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="form-floating mb-3">
-                <input
-                  type="text"
-                  {...register("name", {
-                    required: true,
-                    maxLength: 20,
-                    pattern: /^([A-ZÑa-zñáéíóúÁÉÍÓÚ']|[^ ])+$/,
-                  })}
-                  id="name"
-                  className="form-control rounded-3"
-                  placeholder="Name"
-                  value={name}
-                  autoFocus
-                  onChange={(e) => {
-                    setName(e.target.value);
-                  }}
-                />
-                <label>Name</label>
-                {errors.name?.type === "required" && (
-                  <small> The Name is required</small>
-                )}
-                {errors.name?.type === "maxLength" && (
-                  <small> The max leght is 20</small>
-                )}
-                {errors.name?.type === "pattern" && (
-                  <small>
-                    The name only allows letters in upper and lower case, with
-                    tilde and apostrophes.
-                  </small>
-                )}
+              <div className="d-flex align-items-center justify-content-start mb-3">
+                <div className="me-3">
+                  <div className="form-floating">
+                    <input
+                      type="text"
+                      {...register("name", {
+                        required: true,
+                        maxLength: 20,
+                        pattern: /^([A-ZÑa-zñáéíóúÁÉÍÓÚ']|[^ ])+$/,
+                      })}
+                      id="name"
+                      className="form-control rounded-3"
+                      placeholder="Name"
+                      value={name}
+                      autoFocus
+                      onChange={(e) => {
+                        setName(e.target.value);
+                      }}
+                    />
+                    <label htmlFor="name">Name</label>
+                    {errors.name?.type === "required" && (
+                      <small> The Name is required</small>
+                    )}
+                    {errors.name?.type === "maxLength" && (
+                      <small> The max leght is 20</small>
+                    )}
+                    {errors.name?.type === "pattern" && (
+                      <small>
+                        The name only allows letters in upper and lower case,
+                        with tilde and apostrophes.
+                      </small>
+                    )}
+                  </div>
+                </div>
+                <div className="ms-3">
+                  <div className="form-floating">
+                    <input
+                      type="text"
+                      {...register("lastName", {
+                        required: true,
+                        maxLength: 20,
+                        pattern: /^([A-ZÑa-zñáéíóúÁÉÍÓÚ']|[^ ])+$/,
+                      })}
+                      id="lastName"
+                      className="form-control rounded-3"
+                      placeholder="Last Name"
+                      value={lastName}
+                      onChange={(e) => {
+                        setLastName(e.target.value);
+                      }}
+                    />
+                    <label htmlFor="lastName">Last Name</label>
+                    {errors.lastName?.type === "required" && (
+                      <small> The Last Name is required</small>
+                    )}
+                    {errors.lastName?.type === "maxLength" && (
+                      <small> The max leght is 20</small>
+                    )}
+                    {errors.lastName?.type === "pattern" && (
+                      <small>
+                        The name only allows letters in upper and lower case,
+                        with tilde and apostrophes.
+                      </small>
+                    )}
+                  </div>
+                </div>
               </div>
-              <div className="form-floating mb-3">
-                <input
-                  type="text"
-                  {...register("lastName", {
-                    required: true,
-                    maxLength: 20,
-                    pattern: /^([A-ZÑa-zñáéíóúÁÉÍÓÚ']|[^ ])+$/,
-                  })}
-                  id="lastName"
-                  className="form-control rounded-3"
-                  placeholder="Last Name"
-                  value={lastName}
-                  onChange={(e) => {
-                    setLastName(e.target.value);
-                  }}
-                />
-                <label>Last Name</label>
-                {errors.lastName?.type === "required" && (
-                  <small> The Last Name is required</small>
-                )}
-                {errors.lastName?.type === "maxLength" && (
-                  <small> The max leght is 20</small>
-                )}
-                {errors.lastName?.type === "pattern" && (
-                  <small>
-                    The name only allows letters in upper and lower case, with
-                    tilde and apostrophes.
-                  </small>
-                )}
+              <div className="align-items-center justify-content-start mb-3">
+                <div className="form-floating">
+                  <input
+                    type="text"
+                    {...register("userName", {
+                      required: true,
+                      maxLength: 16,
+                      pattern: /^([A-Za-z0-9_-]|[^ ]){3,16}$/,
+                    })}
+                    id="userName"
+                    className="form-control rounded-3"
+                    placeholder="User name"
+                    value={user}
+                    onChange={(e) => {
+                      setUser(e.target.value);
+                    }}
+                  />
+                  <label htmlFor="userName">User Name</label>
+                  {errors.userName?.type === "required" && (
+                    <small> The User Name is required</small>
+                  )}
+                  {errors.userName?.type === "maxLength" && (
+                    <small> The max leght is 16</small>
+                  )}
+                  {errors.userName?.type === "pattern" && (
+                    <small>
+                      The User Name only allows uppercase letters, lowercase
+                      letters, numbers, underscore, and hyphen
+                    </small>
+                  )}
+                </div>
               </div>
-              <div className="form-floating mb-3">
-                <input
-                  type="text"
-                  {...register("userName", {
-                    required: true,
-                    maxLength: 16,
-                    pattern: /^([A-Za-z0-9_-]|[^ ]){3,16}$/,
-                  })}
-                  id="userName"
-                  className="form-control rounded-3"
-                  placeholder="User name"
-                  value={user}
-                  onChange={(e) => {
-                    setUser(e.target.value);
-                  }}
-                />
-                <label>User Name</label>
-                {errors.userName?.type === "required" && (
-                  <small> The User Name is required</small>
-                )}
-                {errors.userName?.type === "maxLength" && (
-                  <small> The max leght is 16</small>
-                )}
-                {errors.userName?.type === "pattern" && (
-                  <small>
-                    The User Name only allows uppercase letters, lowercase
-                    letters, numbers, underscore, and hyphen
-                  </small>
-                )}
-              </div>
-              <div className="form-floating mb-3">
-                <input
-                  type="password"
-                  {...register("password", {
-                    required: true,
-                    minLength: 8,
-                    maxLength: 20,
-                    pattern:
-                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,20}$/,
-                  })}
-                  id="password"
-                  className="form-control rounded-3"
-                  placeholder="Password"
-                  value={password}
-                  onChange={(e) => {
-                    setPassword(e.target.value);
-                  }}
-                />
-                <label>Password</label>
-                {errors.password?.type === "required" && (
-                  <small> The Password is required</small>
-                )}
-                {errors.password?.type === "maxLength" && (
-                  <small> The max leght is 20</small>
-                )}
-                {errors.password?.type === "minLength" && (
-                  <small> The min leght is 8</small>
-                )}
-                {errors.password?.type === "pattern" && (
-                  <small>
-                    The format of the password needs:
-                    <ul>
-                      <li>At least one capital letter.</li>
-                      <li>At least one lower letter.</li>
-                      <li>At least one digit.</li>
-                      <li>No blank spaces.</li>
-                      <li>At least one special character</li>
-                    </ul>
-                  </small>
-                )}
-              </div>
-              <div className="form-floating mb-3">
-                <input
-                  type="password"
-                  {...register("confirmPassword", {
-                    required: true,
-                    minLength: 8,
-                    maxLength: 20,
-                    pattern:
-                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,20}$/,
-                  })}
-                  id="confirmPassword"
-                  className="form-control rounded-3"
-                  placeholder="Confirm Password"
-                  value={password2}
-                  onChange={(e) => {
-                    setPassword2(e.target.value);
-                  }}
-                />
-                <label>Confirm password</label>
-                {errors.confirmPassword?.type === "required" && (
-                  <small> The Confirm Password is required</small>
-                )}
-                {errors.confirmPassword?.type === "maxLength" && (
-                  <small> The max leght is 20</small>
-                )}
-                {errors.confirmPassword?.type === "minLength" && (
-                  <small> The min leght is 8</small>
-                )}
-                {errors.confirmPassword?.type === "pattern" && (
-                  <small>
-                    The format of the password needs:
-                    <ul>
-                      <li>At least one capital letter.</li>
-                      <li>At least one lower letter.</li>
-                      <li>At least one digit.</li>
-                      <li>No blank spaces.</li>
-                      <li>At least one special character</li>
-                    </ul>
-                  </small>
-                )}
+              <div className="d-flex align-items-center justify-content-start mb-3">
+                <div className="me-3">
+                  <div className="form-floating">
+                    <input
+                      type="password"
+                      {...register("password", {
+                        required: true,
+                        minLength: 8,
+                        maxLength: 20,
+                        pattern:
+                          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,20}$/,
+                      })}
+                      id="password"
+                      className="form-control rounded-3"
+                      placeholder="Password"
+                      value={password}
+                      onChange={(e) => {
+                        setPassword(e.target.value);
+                      }}
+                    />
+                    <label htmlFor="password">Password</label>
+                    {errors.password?.type === "required" && (
+                      <small> The Password is required</small>
+                    )}
+                    {errors.password?.type === "maxLength" && (
+                      <small> The max leght is 20</small>
+                    )}
+                    {errors.password?.type === "minLength" && (
+                      <small> The min leght is 8</small>
+                    )}
+                    {errors.password?.type === "pattern" && (
+                      <small>
+                        The format of the password needs:
+                        <ul>
+                          <li>At least one capital letter.</li>
+                          <li>At least one lower letter.</li>
+                          <li>At least one digit.</li>
+                          <li>No blank spaces.</li>
+                          <li>At least one special character</li>
+                        </ul>
+                      </small>
+                    )}
+                  </div>
+                </div>
+                <div className="ms-3">
+                  <div className="form-floating">
+                    <input
+                      type="password"
+                      {...register("confirmPassword", {
+                        required: true,
+                        minLength: 8,
+                        maxLength: 20,
+                        pattern:
+                          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,20}$/,
+                      })}
+                      id="confirmPassword"
+                      className="form-control rounded-3"
+                      placeholder="Confirm Password"
+                      value={password2}
+                      onChange={(e) => {
+                        setPassword2(e.target.value);
+                      }}
+                    />
+                    <label htmlFor="confirmPassword">Confirm password</label>
+                    {errors.confirmPassword?.type === "required" && (
+                      <small> The Confirm Password is required</small>
+                    )}
+                    {errors.confirmPassword?.type === "maxLength" && (
+                      <small> The max leght is 20</small>
+                    )}
+                    {errors.confirmPassword?.type === "minLength" && (
+                      <small> The min leght is 8</small>
+                    )}
+                    {errors.confirmPassword?.type === "pattern" && (
+                      <small>
+                        The format of the password needs:
+                        <ul>
+                          <li>At least one capital letter.</li>
+                          <li>At least one lower letter.</li>
+                          <li>At least one digit.</li>
+                          <li>No blank spaces.</li>
+                          <li>At least one special character</li>
+                        </ul>
+                      </small>
+                    )}
+                  </div>
+                </div>
               </div>
               <button
                 className="w-100 mb-2 btn btn-lg rounded-3 btn-primary"

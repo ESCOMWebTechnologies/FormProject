@@ -1,4 +1,5 @@
 escomwebtechnologies\formproject\MainMenu.class
+LogIn\Register.class
 Database\ApplicationDatabaseContext.class
 Database\User.class
 Database\Role.class

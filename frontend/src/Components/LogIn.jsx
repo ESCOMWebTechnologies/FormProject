@@ -54,7 +54,7 @@ function LogIn() {
   return (
     <div
       className="modal modal-sheet position-static d-block bg-body-secondary p-2 py-md-2"
-      tabindex="-1"
+      tabIndex="-1"
       role="dialog"
     >
       <Outlet />
