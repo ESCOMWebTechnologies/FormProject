@@ -49,7 +49,7 @@ public class ApplicationDatabaseContext implements Serializable {
         users = new Vector<User>();
         _connected = false;
         _server = "jdbc:mysql://localhost:3306/";
-        _database = "usuario";
+        _database = "formProject";
         _user = "root";
         _password = "1234";
     }
@@ -113,9 +113,11 @@ public class ApplicationDatabaseContext implements Serializable {
             User user = new User(response.getInt(1));
             user.SetUsername(response.getString(2));
             user.SetPassword(response.getString(3));
+            String imPath = response.getString(6);
             user.SetName(response.getString(4));
             user.SetSurname(response.getString(5));
-            user.SetImagePath(response.getString(6));
+            if(imPath == null) user.SetImage("");
+            else user.SetImage(imPath);
             return user;
         }catch(Exception ex){
             _lastError = ex.getMessage();
@@ -127,7 +129,7 @@ public class ApplicationDatabaseContext implements Serializable {
             if(username != null && password != null){
                 ResultSet set = FirstOrDefault("", "users", String.format("username='%s' and password='%s';",username,password));
                 if(set == null){
-                    String query = "insert into * (,,,) values (?,?,?,?)";
+                    String query = "insert into users (username,password,name,surname) values (?,?,?,?)";
                     query = String.format(query,username,password,name,surname);
                     PreparedStatement statement = _connection.prepareStatement(query);
                     statement.setString(1, username);

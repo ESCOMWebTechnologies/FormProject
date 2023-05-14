@@ -37,9 +37,10 @@ public class LogIn extends HttpServlet {
         response.addHeader("Access-Control-","*");
         _context = new ApplicationDatabaseContext();
         Boolean connected = _context.CreateConnection();
-        String formatJson = "{\"%s\":\"%s\"}";
+        String formatJson = "\"%s\":\"%s\",";
         PrintWriter out = response.getWriter();
-        if(connected){  
+        out.println("{");
+        if(connected){
             String username = request.getParameter("username"), password = request.getParameter("password");
             if(username != null && password != null){
                 try {
@@ -48,7 +49,7 @@ public class LogIn extends HttpServlet {
                     if(responses != null){
                         out.println(String.format(formatJson,"response","ok"));
                         out.println(String.format(formatJson,"statusCode","1"));
-                        out.println(String.format(formatJson,"message",user.GetAllUserInformation()));
+                        out.println("\"message\" : "+user.GetAllUserInformation());
                         out.flush();
                     }else{
                         out.println(String.format(formatJson,"response","fail"));
@@ -71,10 +72,10 @@ public class LogIn extends HttpServlet {
         }else{
             out.println(String.format(formatJson,"response","fail"));
             out.println(String.format(formatJson,"statusCode","3"));
-            out.println(String.format(formatJson, _context.GetLastError()));
+            out.println(String.format(formatJson, "message", _context.GetLastError()));
             out.flush();
         }
-        
+        out.println("}");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
