@@ -4,6 +4,7 @@ import java.io.*;
 import javax.servlet.*;
 import Database.*;
 import javax.servlet.http.*;
+import Utilities.*;
 /**
  *
  * @author miku
@@ -30,7 +31,24 @@ public class Register extends HttpServlet {
         PrintWriter out = response.getWriter();
         if(connected){
             try{
+                String user = request.getParameter("user"), surname = request.getParameter("surname"), username = request.getParameter("username"), password = request.getParameter("password");
+                if(username != null && password != null){
+                    password = CifrateData.CifratePassword(password);
+                    Boolean registered = _context.RegisterUser(surname, surname, username, password);
+                    if(registered){
+                        out.println(String.format(formatJson,"response","ok"));
+                        out.println(String.format(formatJson,"statusCode","1"));
+                        out.println(String.format(formatJson,"message","User registered"));
+                    }else{
+                        out.println(String.format(formatJson,"response","ok"));
+                        out.println(String.format(formatJson,"statusCode","2"));
+                        out.println(String.format(formatJson,"message",_context.GetLastError()));
+                    }
+                }
             }catch(Exception ex){
+                out.println(String.format(formatJson,"response","fail"));
+                out.println(String.format(formatJson,"statusCode","3"));
+                out.println(String.format(formatJson,"message",ex.getMessage()));
             }
         }
     }
