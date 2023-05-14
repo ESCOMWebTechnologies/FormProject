@@ -5,6 +5,7 @@
  */
 package Database;
 
+import java.io.Serializable;
 import java.sql.*;
 import java.util.*;
 
@@ -12,7 +13,7 @@ import java.util.*;
  *
  * @author miku
  */
-public class ApplicationDatabaseContext {
+public class ApplicationDatabaseContext implements Serializable {
     //Private attributes
     private transient Connection _connection;
     private static Statement _statementQuery;

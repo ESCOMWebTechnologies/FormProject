@@ -34,6 +34,7 @@ public class LogIn extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
+        response.addHeader("Access-Control-","*");
         _context = new ApplicationDatabaseContext();
         Boolean connected = _context.CreateConnection();
         String formatJson = "{\"%s\":\"%s\"}";
