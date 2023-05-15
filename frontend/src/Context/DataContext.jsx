@@ -60,7 +60,9 @@ export function DataContextProvider(props) {
   async function logIn(username, password) {
     setUsername(username);
     setPassword(password);
-    const response = await fetch("/FormProject/LoginForm?username=" + username + "&password=" + password);
+    const response = await fetch(
+      "/FormProject/LoginForm?username=" + username + "&password=" + password
+    );
     const data = await response.json();
     console.log(data);
     console.log(data.response);
