@@ -1,4 +1,3 @@
-
 //Importacion del componente React
 import React from "react";
 
@@ -36,11 +35,13 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "LogIn",
+        //path: "LogIn",
+        path: "/FormProject/LogIn/",
         element: <LogIn />,
       },
       {
-        path: "SignUp",
+        //path: "SignUp",
+        path: "/FormProject/SignUp/",
         element: <SignUp />,
       },
     ],
@@ -49,15 +50,12 @@ const router = createBrowserRouter([
 
 //Se crea el objeto root y se renderiza en la pagina html donde se encuentra el id App
 ReactDOM.createRoot(document.getElementById("App")).render(
-
   //Se llama la herramienta de ayuda React.StrictMode
   <React.StrictMode>
-
     {/* Se manda a llamar el contexto para pasarlo a los hijos*/}
     <DataContextProvider>
-
-        {/* Se manda a llamar el RouterProvider para hacer el ruteo a los diferentes sitios*/}
-        <RouterProvider router={router} />
+      {/* Se manda a llamar el RouterProvider para hacer el ruteo a los diferentes sitios*/}
+      <RouterProvider router={router} />
     </DataContextProvider>
   </React.StrictMode>
 );

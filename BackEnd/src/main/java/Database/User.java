@@ -61,14 +61,8 @@ public class User {
     public String GetSurname(){
         return (_surname != null) ? _surname : "No surname";
     }
-    public void SetRol(Role role){
-        _rolename = role.GetRoleName();
-    }
-    public void SetRol(String rolename){
-        _rolename = rolename;
-    }
-    public String GetRol(){
-        return (_rolename != null) ? _rolename : "No rolename";
+    public void SetImage(String image){
+        _imagePath = image;
     }
     public void SetImagePath(String imagePath){
         _imagePath = imagePath;
@@ -80,6 +74,6 @@ public class User {
         return (_username != null && _password != null) ? _id : -1 ;
     }
     public String GetAllUserInformation(){
-        return String.format("{\nname : %s,\nusername : %s,\nsurname : %s,\nimagePath : %s\n}",_name,_username,_surname,_imagePath);
+        return String.format("{\n\t\"name\" : \"%s\",\n\t\"username\" : \"%s\",\n\t\"surname\" : \"%s\",\n\t\"imagePath\" : \"%s\"\n}",_name,_username,_surname,_imagePath);
     }
 }

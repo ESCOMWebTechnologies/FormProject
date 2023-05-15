@@ -1,5 +1,5 @@
 //Importacion del componente React y useState
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 //Importacion del componente Link que sirve para redirigir a los demas componentes con el browserRouter
 import { Link, Outlet, useLocation } from "react-router-dom";
@@ -23,8 +23,14 @@ import {
 //Importacion de iconos de Grommet-Icons
 import { GrFacebookOption, GrTwitter, GrInstagram } from "react-icons/gr";
 
+//Importacion del contexto
+import { DataContext } from "../Context/DataContext.jsx";
+
 //Se crea la funcion Home
 function Home() {
+  //Se llama a una variable del contexto
+  const { imagePath } = useContext(DataContext);
+
   //Se crean los estados del menu desplegable para saber si esta abierto o cerrado
   const [dropDawn, setDropDawn] = useState(false);
   const [dropDawn2, setDropDawn2] = useState(false);
@@ -81,7 +87,7 @@ function Home() {
         </div>
       );
     } else {
-      return <Outlet />
+      return <Outlet />;
     }
   };
 
@@ -95,8 +101,11 @@ function Home() {
         <div className="col-md-5 text-end ms-5 mb-2 mt-2">
           <ul className="nav col-12 col-md-auto justify-content-end">
             <li className="me-4">
-              {/*<Link to={"/"} className="nav-link text-secondary">*/}
-              <Link to={"/FormProject/"} className="nav-link text-secondary" >
+              <Link
+                //to={"/"}
+                to={"/FormProject/"}
+                className="nav-link text-secondary"
+              >
                 <BsFillHouseDoorFill
                   className="bi d-block mx-auto mb-1"
                   size="15"
@@ -115,7 +124,7 @@ function Home() {
                   style={{ backgroundColor: "white", border: "0" }}
                 >
                   <img
-                    src="https://github.com/mdo.png"
+                    src={imagePath}
                     alt="mdo"
                     width="20"
                     height="20"
@@ -129,7 +138,8 @@ function Home() {
                   <DropdownItem>
                     <small>
                       <Link
-                        to={"/SignUp"}
+                        //to={"/SignUp"}
+                        to={"/FormProject/SignUp/"}
                         className="dropdown-item d-flex align-items-center"
                       >
                         Sign Up
@@ -139,7 +149,8 @@ function Home() {
                   <DropdownItem>
                     <small>
                       <Link
-                        to={"/LogIn"}
+                        //to={"/LogIn"}
+                        to={"/FormProject/LogIn/"}
                         className="dropdown-item d-flex align-items-center"
                       >
                         Log In

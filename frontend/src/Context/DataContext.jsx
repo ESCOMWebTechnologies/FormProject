@@ -1,4 +1,3 @@
-
 //Importacion del componente React, createContext y useState
 import React, { createContext, useState } from "react";
 
@@ -7,61 +6,79 @@ export const DataContext = createContext();
 
 //Se crea la funcion ContextProvider
 export function DataContextProvider(props) {
-
   //Se crean los parametros necesarios paqra crear una cuenta
   const [name, setName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [user, setUser] = useState("");
+  const [surname, setSurname] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [id, setId] = useState("");
+  const [imagePath, setImagePath] = useState(
+    "https://cdn-icons-png.flaticon.com/512/1077/1077063.png"
+  );
 
   //Se crea la funcion signUp la cual sera la encargada de almacenar los valores ingresador por el usuario
-  function signUp(name, lastName, user, password) {
+  async function signUp(name, surname, username, password) {
     setName(name);
-    setLastName(lastName);
-    setUser(user);
+    setSurname(surname);
+    setUsername(username);
     setPassword(password);
-    createAccount();
+    const response = await fetch(
+      "/FormProject/Register?name=" +
+        name +
+        "&surname=" +
+        surname +
+        "&username=" +
+        username +
+        "&password=" +
+        password
+    );
+    const data = await response.json();
+    console.log(data);
+    console.log(data.response);
+    console.log(data.statusCode);
+    console.lpg(data.message);
+    if (data.response === "ok") {
+      if (data.statusCode === "1") {
+        return data.statusCode;
+      } else {
+        setName("");
+        setSurname("");
+        setUsername("");
+        setPassword("");
+        return data.statusCode;
+      }
+    } else {
+      setName("");
+      setSurname("");
+      setUsername("");
+      setPassword("");
+      return data.statusCode;
+    }
   }
 
   //Se crea la funcion signIn la cual sera la encargada de almacenar los datos ingresador por el usuario
-  function signIn(user, password) {
-    setUser(user);
+  async function logIn(username, password) {
+    setUsername(username);
     setPassword(password);
-    signInSession();
-    //Se retorna el valor true/false si los datos ingresados son correctos
-    return true;
-  }
-
-  function createAccount() {
-    /*fetch("name"+"surname"+"username"+"password")
-    fetch()
-      .then((response) => response.text())
-      .then((usuario) => {
-        let ret = usuario.includes("yes");
-        if (ret) {
-          this.setState({ condition: true });
-          alert("USUARIO VALIDO");
-        } else {
-          this.setState({ condition: false });
-          alert("USUARIO NO VALIDO");
-        }
-      });*/
-  }
-
-  function signInSession() {
-    /*fetch("name"+"surname"+"username"+"password")
-    fetch()
-      .then((response) => response.text())
-      .then((usuario) => {
-        let ret = usuario.includes("yes");
-        if (ret) {
-          this.setState({ condition: true });
-          alert("USUARIO VALIDO");
-        } else {
-          this.setState({ condition: false });
-          alert("USUARIO NO VALIDO");
-        }
-      });*/
+    const response = await fetch("/FormProject/LoginForm?username=" + username + "&password=" + password);
+    const data = await response.json();
+    console.log(data);
+    console.log(data.response);
+    console.log(data.statusCode);
+    console.lpg(data.message);
+    if (data.response === "ok") {
+      if (data.statusCode === "1") {
+        return data.statusCode;
+      } else {
+        setUsername("");
+        setPassword("");
+        return data.statusCode;
+      }
+    } else {
+      setUsername("");
+      setPassword("");
+      return data.statusCode;
+    }
   }
 
   //Se retorna el componente ContextProvider con las funciones y parametros antes indicados
@@ -69,11 +86,13 @@ export function DataContextProvider(props) {
     <DataContext.Provider
       value={{
         name,
-        lastName,
-        user,
+        surname,
+        username,
         password,
+        id,
+        imagePath,
         signUp,
-        signIn,
+        logIn,
       }}
     >
       {props.children}

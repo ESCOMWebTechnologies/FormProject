@@ -17,8 +17,8 @@ import Swal from "sweetalert2";
 function SignUp() {
   //Se importan los parametros y funciones necesarias para el signUp del contexto
   const [name, setName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [user, setUser] = useState("");
+  const [surname, setSurname] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
   const { signUp } = useContext(DataContext);
@@ -35,17 +35,36 @@ function SignUp() {
     //Se verifica que la contraseña y la contraseña de confirmacion sean iguales
     if (password === password2) {
       //Se almacenan los datos del usuario, se limpia el formulario y se lanza un mensaje de alerta
-      signUp(name, lastName, user, password);
-      setName("");
-      setLastName("");
-      setUser("");
-      setPassword("");
-      setPassword2("");
-      Swal.fire({
-        title: "<strong>Account registered</strong>",
-        icon: "Succes",
-        html: "The current account <b>registered</b> succesfully.",
-      });
+      let status = signUp(name, surname, username, password);
+      if (status === "1") {
+        Swal.fire({
+          title: "<strong>Account registered</strong>",
+          icon: "Succes",
+          html: "The current account <b>registered</b> succesfully.",
+        });
+        setName("");
+        setSurname("");
+        setUsername("");
+        setPassword("");
+        setPassword2("");
+      } else if (status === "2") {
+        Swal.fire({
+          title: "<strong>Oops!</strong>",
+          icon: "warning",
+          html: "The current account <b>alredy exist.</b>",
+        });
+        setName("");
+        setSurname("");
+        setUsername("");
+        setPassword("");
+        setPassword2("");
+      } else if (status === "3") {
+        Swal.fire({
+          title: "<strong>Oops!</strong>",
+          icon: "warning",
+          html: "An <b>internal error</b> occurred please try again.",
+        });
+      }
     } else {
       //En caso de no ser iguales se resetean las contraseñas y se despliega una alerta
       setPassword("");
@@ -107,27 +126,27 @@ function SignUp() {
                   <div className="form-floating">
                     <input
                       type="text"
-                      {...register("lastName", {
+                      {...register("surname", {
                         required: true,
                         maxLength: 20,
                         pattern: /^([A-ZÑa-zñáéíóúÁÉÍÓÚ']|[^ ])+$/,
                       })}
-                      id="lastName"
+                      id="surname"
                       className="form-control rounded-3"
-                      placeholder="Last Name"
-                      value={lastName}
+                      placeholder="Surname"
+                      value={surname}
                       onChange={(e) => {
-                        setLastName(e.target.value);
+                        setSurname(e.target.value);
                       }}
                     />
-                    <label htmlFor="lastName">Last Name</label>
-                    {errors.lastName?.type === "required" && (
-                      <small> The Last Name is required</small>
+                    <label htmlFor="surname">Surname</label>
+                    {errors.surname?.type === "required" && (
+                      <small> The Surname is required</small>
                     )}
-                    {errors.lastName?.type === "maxLength" && (
+                    {errors.surname?.type === "maxLength" && (
                       <small> The max leght is 20</small>
                     )}
-                    {errors.lastName?.type === "pattern" && (
+                    {errors.surname?.type === "pattern" && (
                       <small>
                         The name only allows letters in upper and lower case,
                         with tilde and apostrophes.
@@ -140,27 +159,27 @@ function SignUp() {
                 <div className="form-floating">
                   <input
                     type="text"
-                    {...register("userName", {
+                    {...register("username", {
                       required: true,
                       maxLength: 16,
                       pattern: /^([A-Za-z0-9_-]|[^ ]){3,16}$/,
                     })}
-                    id="userName"
+                    id="username"
                     className="form-control rounded-3"
                     placeholder="User name"
-                    value={user}
+                    value={username}
                     onChange={(e) => {
-                      setUser(e.target.value);
+                      setUsername(e.target.value);
                     }}
                   />
-                  <label htmlFor="userName">User Name</label>
-                  {errors.userName?.type === "required" && (
+                  <label htmlFor="username">User Name</label>
+                  {errors.username?.type === "required" && (
                     <small> The User Name is required</small>
                   )}
-                  {errors.userName?.type === "maxLength" && (
+                  {errors.username?.type === "maxLength" && (
                     <small> The max leght is 16</small>
                   )}
-                  {errors.userName?.type === "pattern" && (
+                  {errors.username?.type === "pattern" && (
                     <small>
                       The User Name only allows uppercase letters, lowercase
                       letters, numbers, underscore, and hyphen
@@ -182,7 +201,7 @@ function SignUp() {
                       })}
                       id="password"
                       className="form-control rounded-3"
-                      placeholder="Password"
+                      placeholder="password"
                       value={password}
                       onChange={(e) => {
                         setPassword(e.target.value);

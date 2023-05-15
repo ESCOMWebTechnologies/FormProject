@@ -4,7 +4,6 @@ import java.io.*;
 import javax.servlet.*;
 import Database.*;
 import javax.servlet.http.*;
-=======
 import Utilities.*;
 /**
  *
@@ -28,19 +27,20 @@ public class Register extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         _context = new ApplicationDatabaseContext();
         Boolean connected = _context.CreateConnection();
-        String formatJson = "{\"%s\":\"%s\"}";
+        String formatJson = "\"%s\":\"%s\"";
         PrintWriter out = response.getWriter();
+        out.println("{");
         if(connected){
             try{
-            }catch(Exception ex){
                 String user = request.getParameter("user"), surname = request.getParameter("surname"), username = request.getParameter("username"), password = request.getParameter("password");
                 if(username != null && password != null){
-                    password = CifrateData.CifratePassword(password);
+                    //password = CifrateData.CifratePassword(password);
                     Boolean registered = _context.RegisterUser(surname, surname, username, password);
                     if(registered){
+                        User userRegistered = _context.GetUser(_context.FirstOrDefault("", "users", String.format("username='%s' and password='%s';",username,password)));
                         out.println(String.format(formatJson,"response","ok"));
                         out.println(String.format(formatJson,"statusCode","1"));
-                        out.println(String.format(formatJson,"message","User registered"));
+                        out.println(String.format("\"message\" :"+userRegistered.GetAllUserInformation()));
                     }else{
                         out.println(String.format(formatJson,"response","ok"));
                         out.println(String.format(formatJson,"statusCode","2"));
@@ -53,6 +53,7 @@ public class Register extends HttpServlet {
                 out.println(String.format(formatJson,"message",ex.getMessage()));
             }
         }
+        out.println("}");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

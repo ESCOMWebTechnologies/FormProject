@@ -16,9 +16,9 @@ import Swal from "sweetalert2";
 //Se crea la funcion signIn
 function LogIn() {
   //Se importan los parametros y funciones necesarias para el signIn del contexto
-  const [user, setUser] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { signIn } = useContext(DataContext);
+  const { logIn } = useContext(DataContext);
 
   //Se crea un objeto del tipo useForm y se importan las funciones a utilizar
   const {
@@ -30,22 +30,28 @@ function LogIn() {
   //Se crea una funcion para manejar el comportamiento del formuario
   const onSubmit = () => {
     //Se verifica que el usuario exista
-    if (signIn(user, password)) {
-      //En caso de existir se limpia el formulario y se manda un mensaje de alerta
-      setUser("");
-      setPassword("");
+    let status = logIn(username, password);
+    //En caso de existir se limpia el formulario y se manda un mensaje de alerta
+    if (status === "1") {
       Swal.fire({
         title: "<strong>Welcome</strong>",
         icon: "Succes",
       });
-      alert("Welcome");
-    } else {
-      //En caso de que el usuario no exista, se elimina la contraseña y semanda un mensaje de alerta
+      setUsername("");
       setPassword("");
+    } else if (status === "2") {
       Swal.fire({
         title: "<strong>Oops!</strong>",
         icon: "warning",
-        html: "The user or password are <b>incorrect</b> please try again. ",
+        html: "The user/password are <b>incorrect or do not exist</b> please try again. ",
+      });
+      setUsername("");
+      setPassword("");
+    } else if (status === "3") {
+      Swal.fire({
+        title: "<strong>Oops!</strong>",
+        icon: "warning",
+        html: "An <b>internal error</b> occurred please try again.",
       });
     }
   };
@@ -68,28 +74,28 @@ function LogIn() {
               <div className="form-floating mb-3">
                 <input
                   type="text"
-                  {...register("userName", {
+                  {...register("username", {
                     required: true,
                     maxLength: 16,
                     pattern: /^([A-Za-z0-9_-]|[^ ]){3,16}$/,
                   })}
-                  id="userName"
+                  id="username"
                   className="form-control rounded-3"
-                  placeholder="User name"
-                  value={user}
+                  placeholder="User Name"
+                  value={username}
                   autoFocus
                   onChange={(e) => {
-                    setUser(e.target.value);
+                    setUsername(e.target.value);
                   }}
                 />
                 <label>User Name</label>
-                {errors.userName?.type === "required" && (
+                {errors.username?.type === "required" && (
                   <small> The User Name is required</small>
                 )}
-                {errors.userName?.type === "maxLength" && (
+                {errors.username?.type === "maxLength" && (
                   <small> The max leght is 16</small>
                 )}
-                {errors.userName?.type === "pattern" && (
+                {errors.username?.type === "pattern" && (
                   <small>
                     The User Name only allows uppercase letters, lowercase
                     letters, numbers, underscore, and hyphen
@@ -141,7 +147,7 @@ function LogIn() {
                 className="w-100 mb-2 btn btn-lg rounded-3 btn-primary"
                 type="submit"
               >
-                Sign In
+                Log In
               </button>
             </form>
           </div>
