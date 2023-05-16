@@ -1,4 +1,3 @@
-
 //Importacion del componente React
 import React from "react";
 
@@ -22,7 +21,7 @@ import Home from "./Components/Home.jsx";
 import ErrorPage from "./Components/ErrorPage.jsx";
 
 //Importacion del componente SignIn
-import SignIn from "./Components/SignIn.jsx";
+import LogIn from "./Components/LogIn.jsx";
 
 //Importacion del componente SignUp
 import SignUp from "./Components/SignUp.jsx";
@@ -30,19 +29,20 @@ import SignUp from "./Components/SignUp.jsx";
 //Se crea el objeto BrowserRouter
 const router = createBrowserRouter([
   {
-    path: "/",
+    //path: "/",
+    path: "/FormProject/",
     element: <Home />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "SignIn",
-        element: <SignIn />,
-        errorElement: <ErrorPage />,
+        //path: "LogIn",
+        path: "/FormProject/LogIn/",
+        element: <LogIn />,
       },
       {
-        path: "SignUp",
+        //path: "SignUp",
+        path: "/FormProject/SignUp/",
         element: <SignUp />,
-        errorElement: <ErrorPage />,
       },
     ],
   },
@@ -50,15 +50,12 @@ const router = createBrowserRouter([
 
 //Se crea el objeto root y se renderiza en la pagina html donde se encuentra el id App
 ReactDOM.createRoot(document.getElementById("App")).render(
-
   //Se llama la herramienta de ayuda React.StrictMode
   <React.StrictMode>
-
     {/* Se manda a llamar el contexto para pasarlo a los hijos*/}
     <DataContextProvider>
-
-        {/* Se manda a llamar el RouterProvider para hacer el ruteo a los diferentes sitios*/}
-        <RouterProvider router={router} />
+      {/* Se manda a llamar el RouterProvider para hacer el ruteo a los diferentes sitios*/}
+      <RouterProvider router={router} />
     </DataContextProvider>
   </React.StrictMode>
 );

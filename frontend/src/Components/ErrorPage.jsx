@@ -1,4 +1,3 @@
-
 //Importacion del componente React
 import React from "react";
 
@@ -10,7 +9,6 @@ import { Link } from "react-router-dom";
 
 //Se crea la funcion ErrorPage
 function ErrorPage() {
-
   //Se crea un objeto useRouteError
   const error = useRouteError();
 
@@ -29,7 +27,13 @@ function ErrorPage() {
           <i>{error.statusText || error.message}</i>
         </p>
         <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
-          <Link to={"/"} className="btn btn-outline-primary btn-lg" role="button">Home</Link>
+          <Link
+            to={"/"}
+            className="btn btn-outline-primary btn-lg"
+            role="button"
+          >
+            Home
+          </Link>
         </div>
       </div>
     </div>

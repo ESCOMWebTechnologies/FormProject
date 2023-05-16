@@ -1,4 +1,7 @@
-escomwebtechnologies/formproject/MainMenu.class
-Database/ApplicationDatabaseContext.class
-Database/User.class
-LogIn/LogIn.class
+Database\User.class
+LogIn\LogIn.class
+escomwebtechnologies\formproject\MainMenu.class
+Utilities\CifrateData.class
+LogIn\Register.class
+Database\ApplicationDatabaseContext.class
+Database\Role.class
