@@ -8,6 +8,7 @@ package Database;
 import java.io.Serializable;
 import java.sql.*;
 import java.util.*;
+import java.time.LocalDate;
 
 /**
  *
@@ -130,7 +131,6 @@ public class ApplicationDatabaseContext implements Serializable {
                 ResultSet set = FirstOrDefault("", "users", String.format("username='%s' and password='%s';",username,password));
                 if(set == null){
                     String query = "insert into users (username,password,name,surname) values (?,?,?,?)";
-                    query = String.format(query,username,password,name,surname);
                     PreparedStatement statement = _connection.prepareStatement(query);
                     statement.setString(1, username);
                     statement.setString(2, password);
@@ -154,6 +154,66 @@ public class ApplicationDatabaseContext implements Serializable {
         }catch(Exception ex){
             _lastError = ex.getMessage();
             return true;   
+        }
+    }
+    public Boolean CreateForm(int userId, String formName, int questionNumber, String formId){
+        if(formId != null && formName != null && userId < 0 && questionNumber == 0){
+            try{
+                String query = "INSERT INTO forms VALUES (?,?,?,?,?,?)";
+                LocalDate currentDate = LocalDate.now();
+                PreparedStatement statement = _connection.prepareStatement(query);
+                statement.setString(1, formId);
+                statement.setString(2, formName);
+                statement.setInt(3, questionNumber);
+                statement.setString(4, currentDate.toString());
+                statement.setInt(5, userId);
+                statement.setInt(6, 0);
+                int rowsAffected = statement.executeUpdate();
+                if(rowsAffected > 0){
+                    return true;
+                } else {
+                    _lastError = "Error unknown while creating the form";
+                    return false;
+                }
+            }catch (Exception ex){
+                _lastError = ex.getMessage();
+            }
+        }else{
+            _lastError = "Some parameters are empty";
+        }
+        return false;
+    }
+    public Boolean RemoveForm(String formId, int userId){
+        if(formId != null && userId < 0){
+            try{
+                String query = "DELETE FROM forms WHERE id=? AND userId=?";
+                PreparedStatement statement = _connection.prepareStatement(query);
+                statement.setString(1, formId);
+                statement.setInt(2, userId);
+                int rowsAffected = statement.executeUpdate();
+                if(rowsAffected > 0){
+                    return true;
+                } else {
+                    _lastError = "Error unknown while deleting the form";
+                    return false;
+                }
+            }catch (Exception ex){
+                _lastError = ex.getMessage();
+            }
+        }else{
+            _lastError = "Some parameters are empty";
+        }
+        return false;   
+    }
+    public Boolean ExistId(String id, String table){
+        String query = String.format("SELECT * FROM %s WHERE id = '%s';",table,id);
+        try{
+            _resultSet = _statementQuery.executeQuery(query);
+            return (_resultSet.next()) ? true : false;
+        }catch(Exception ex){
+            _lastError = ex.getMessage();
+        }finally{
+            return false;
         }
     }
 }

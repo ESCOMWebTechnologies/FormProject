@@ -27,7 +27,7 @@ public class Register extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         _context = new ApplicationDatabaseContext();
         Boolean connected = _context.CreateConnection();
-        String formatJson = "\"%s\":\"%s\"";
+        String formatJson = "\"%s\":\"%s\",";
         PrintWriter out = response.getWriter();
         out.println("{");
         if(connected){
@@ -41,19 +41,23 @@ public class Register extends HttpServlet {
                         out.println(String.format(formatJson,"response","ok"));
                         out.println(String.format(formatJson,"statusCode","1"));
                         out.println(String.format("\"message\" :"+userRegistered.GetAllUserInformation()));
+                        out.flush();
                     }else{
                         out.println(String.format(formatJson,"response","ok"));
                         out.println(String.format(formatJson,"statusCode","2"));
                         out.println(String.format(formatJson,"message",_context.GetLastError()));
+                        out.flush();
                     }
                 }
             }catch(Exception ex){
                 out.println(String.format(formatJson,"response","fail"));
                 out.println(String.format(formatJson,"statusCode","3"));
                 out.println(String.format(formatJson,"message",ex.getMessage()));
+                out.flush();
             }
         }
         out.println("}");
+        out.flush();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
