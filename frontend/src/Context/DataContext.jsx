@@ -36,7 +36,7 @@ export function DataContextProvider(props) {
     console.log(data);
     console.log(data.response);
     console.log(data.statusCode);
-    console.lpg(data.message);
+    console.log(data.message);
     if (data.response === "ok") {
       if (data.statusCode === "1") {
         return data.statusCode;
@@ -67,7 +67,7 @@ export function DataContextProvider(props) {
     console.log(data);
     console.log(data.response);
     console.log(data.statusCode);
-    console.lpg(data.message);
+    console.log(data.message);
     if (data.response === "ok") {
       if (data.statusCode === "1") {
         return data.statusCode;
