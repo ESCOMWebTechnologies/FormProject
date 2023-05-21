@@ -15,18 +15,6 @@
         <servlet-name>Register</servlet-name>
         <servlet-class>LogIn.Register</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>FormCreate</servlet-name>
-        <servlet-class>Forms.FormCreate</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>EditForm</servlet-name>
-        <servlet-class>Forms.EditForm</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>RemoveForm</servlet-name>
-        <servlet-class>Forms.RemoveForm</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>LogIn</servlet-name>
         <url-pattern>/LoginForm</url-pattern>
@@ -42,18 +30,6 @@
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
         <url-pattern>/Register</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>FormCreate</servlet-name>
-        <url-pattern>/CreateForm</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>EditForm</servlet-name>
-        <url-pattern>/EditForm</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>RemoveForm</servlet-name>
-        <url-pattern>/RemoveForm</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
