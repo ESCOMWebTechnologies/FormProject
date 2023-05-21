@@ -11,5 +11,5 @@ CREATE TABLE users(
     CONSTRAINT PrimaryKeyUsers
     PRIMARY KEY (id,username)
 );
-ALTER TABLE users
+ALTER TABLE users;
 ALTER COLUMN name SET DEFAULT username;
