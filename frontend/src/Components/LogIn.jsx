@@ -10,7 +10,7 @@ import { DataContext } from "../Context/DataContext.jsx";
 //Importacion del componente useForm
 import { useForm } from "react-hook-form";
 
-//Importacion del componente Swal
+//Importacion del componente Swal 
 import Swal from "sweetalert2";
 
 //Se crea la funcion signIn
@@ -19,7 +19,8 @@ function LogIn() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { logIn } = useContext(DataContext);
-
+  const { state } = useContext(DataContext);
+  
   //Se crea un objeto del tipo useForm y se importan las funciones a utilizar
   const {
     register,
@@ -30,16 +31,17 @@ function LogIn() {
   //Se crea una funcion para manejar el comportamiento del formuario
   const onSubmit = () => {
     //Se verifica que el usuario exista
-    let status = logIn(username, password);
+    logIn(username, password);
+    console.log(state);
     //En caso de existir se limpia el formulario y se manda un mensaje de alerta
-    if (status === "1") {
+    if (state === "1") {
       Swal.fire({
         title: "<strong>Welcome</strong>",
-        icon: "Succes",
+        icon: "success",
       });
       setUsername("");
       setPassword("");
-    } else if (status === "2") {
+    } else if (state === "2") {
       Swal.fire({
         title: "<strong>Oops!</strong>",
         icon: "warning",
@@ -47,7 +49,7 @@ function LogIn() {
       });
       setUsername("");
       setPassword("");
-    } else if (status === "3") {
+    } else if (state === "3") {
       Swal.fire({
         title: "<strong>Oops!</strong>",
         icon: "warning",
@@ -67,7 +69,7 @@ function LogIn() {
       <div className="modal-dialog" role="document">
         <div className="modal-content rounded-4 shadow">
           <div className="modal-header p-5 pb-4 border-bottom-0">
-            <h1 className="fw-bold mb-0 fs-2">Sign up for free</h1>
+            <h1 className="fw-bold mb-0 fs-2">Log In</h1>
           </div>
           <div className="modal-body p-5 pt-0">
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -80,6 +82,7 @@ function LogIn() {
                     pattern: /^([A-Za-z0-9_-]|[^ ]){3,16}$/,
                   })}
                   id="username"
+                  autoComplete="off"
                   className="form-control rounded-3"
                   placeholder="User Name"
                   value={username}
@@ -88,7 +91,7 @@ function LogIn() {
                     setUsername(e.target.value);
                   }}
                 />
-                <label>User Name</label>
+                <label htmlFor="username">User Name</label>
                 {errors.username?.type === "required" && (
                   <small> The User Name is required</small>
                 )}
@@ -120,7 +123,7 @@ function LogIn() {
                     setPassword(e.target.value);
                   }}
                 />
-                <label>Password</label>
+                <label htmlFor="password">Password</label>
                 {errors.password?.type === "required" && (
                   <small> The Password is required</small>
                 )}

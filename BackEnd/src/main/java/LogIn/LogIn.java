@@ -37,9 +37,7 @@ public class LogIn extends HttpServlet {
         response.addHeader("Access-Control-","*");
         _context = new ApplicationDatabaseContext();
         Boolean connected = _context.CreateConnection();
-        String formatJson = "\"%s\":\"%s\",";
         PrintWriter out = response.getWriter();
-        out.println("{");
         if(connected){
             String username = request.getParameter("username"), password = request.getParameter("password");
             if(username != null && password != null){
@@ -47,35 +45,24 @@ public class LogIn extends HttpServlet {
                     ResultSet responses = _context.FirstOrDefault("", "users", String.format("username='%s' and password='%s';",username,password));
                     User user = _context.GetUser(responses);
                     if(responses != null){
-                        out.println(String.format(formatJson,"response","ok"));
-                        out.println(String.format(formatJson,"statusCode","1"));
-                        out.println("\"message\" : "+user.GetAllUserInformation());
+                        out.println(String.format("{\n\t\"response\" : \"ok\",\n\t\"statusCode\" : \"1\",\n\t\"message\" :"+user.GetAllUserInformation()+"\n}"));
                         out.flush();
                     }else{
-                        out.println(String.format(formatJson,"response","fail"));
-                        out.println(String.format(formatJson,"statusCode","2"));
-                        out.println(String.format(formatJson,"message","User not found"));
+                        out.println(String.format("{\n\t\"response\" : \"fail\",\n\t\"statusCode\" : \"2\",\n\t\"message\" : \"User not found\" \n}"));
                         out.flush();
                     }
                 }catch(Exception ex){
-                    out.println(String.format(formatJson,"response","fail"));
-                    out.println(String.format(formatJson,"statusCode","3"));
-                    out.println(String.format(formatJson,"message",ex));
+                    out.println(String.format("{\n\t\"response\" : \"ok\",\n\t\"statusCode\" : \"3\",\n\t\"message\" : \""+ex.getMessage()+"\" \n}"));
                     out.flush();
                 }
             }else{
-                out.println(String.format(formatJson,"response","fail"));
-                out.println(String.format(formatJson,"statusCode","2"));
-                out.println(String.format(formatJson,"message","User not found"));
+                out.println(String.format("{\n\t\"response\" : \"fail\",\n\t\"statusCode\" : \"2\",\n\t\"message\" : \"User not found\" \n}"));
                 out.flush();
             }
         }else{
-            out.println(String.format(formatJson,"response","fail"));
-            out.println(String.format(formatJson,"statusCode","3"));
-            out.println(String.format(formatJson, "message", _context.GetLastError()));
+            out.println(String.format("{\n\t\"response\" : \"ok\",\n\t\"statusCode\" : \"3\",\n\t\"message\" : \""+_context.GetLastError()+"\" \n}"));
             out.flush();
         }
-        out.println("}");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

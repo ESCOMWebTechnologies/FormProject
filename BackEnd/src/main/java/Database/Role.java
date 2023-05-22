@@ -30,6 +30,7 @@ public class Role {
     public String GetRoleName(){
         return (_rolename != null) ? _rolename : "No rolename";
     }
+    
     public int GetId(){
         return _id;
     }

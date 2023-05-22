@@ -9,78 +9,64 @@ export function DataContextProvider(props) {
   //Se crean los parametros necesarios paqra crear una cuenta
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState(""); 
   const [password, setPassword] = useState("");
   const [id, setId] = useState("");
+  const [state, setState] = useState("");
   const [imagePath, setImagePath] = useState(
     "https://cdn-icons-png.flaticon.com/512/1077/1077063.png"
   );
 
   //Se crea la funcion signUp la cual sera la encargada de almacenar los valores ingresador por el usuario
-  async function signUp(name, surname, username, password) {
+  function signUp(name, surname, username, password) {
     setName(name);
     setSurname(surname);
     setUsername(username);
     setPassword(password);
-    const response = await fetch(
-      "/FormProject/Register?name=" +
-        name +
-        "&surname=" +
-        surname +
-        "&username=" +
-        username +
-        "&password=" +
-        password
-    );
-    const data = await response.json();
-    console.log(data);
-    console.log(data.response);
-    console.log(data.statusCode);
-    console.log(data.message);
-    if (data.response === "ok") {
-      if (data.statusCode === "1") {
-        return data.statusCode;
-      } else {
-        setName("");
-        setSurname("");
-        setUsername("");
-        setPassword("");
-        return data.statusCode;
-      }
-    } else {
-      setName("");
-      setSurname("");
-      setUsername("");
-      setPassword("");
-      return data.statusCode;
-    }
+    fetch("/FormProject/Register?name="+name+"&surname="+surname+"&username="+username+"&password="+password)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.response === "ok") {
+          if (data.statusCode === "1") {
+            setState(data.statusCode);
+          } else {
+            setName("");
+            setSurname("");
+            setUsername("");
+            setPassword("");
+            setState(data.statusCode);
+          }
+        } else {
+          setName("");
+          setSurname("");
+          setUsername("");
+          setPassword("");
+          setState(data.statusCode);
+        }
+      });
   }
 
   //Se crea la funcion signIn la cual sera la encargada de almacenar los datos ingresador por el usuario
-  async function logIn(username, password) {
+  function logIn(username, password) {
     setUsername(username);
     setPassword(password);
-    const response = await fetch(
-      "/FormProject/LoginForm?username=" + username + "&password=" + password
-    );
-    const data = await response.json();
-    console.log(data);
-    console.log(data.response);
-    console.log(data.statusCode);
-    console.log(data.message);
-    if (data.response === "ok") {
-      if (data.statusCode === "1") {
-        return data.statusCode;
-      } else {
-        setUsername("");
-        setPassword("");
-        return data.statusCode;
-      }
-    } else {
-      setUsername("");
-      setPassword("");
-      return data.statusCode;
-    }
+    fetch("/FormProject/LoginForm?username="+username+"&password="+password)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.response === "ok") {
+          if (data.statusCode === "1") {
+            setState(data.statusCode);
+          } else {
+            setUsername("");
+            setPassword("");
+            setState(data.statusCode);
+          }
+        } else {
+          setUsername("");
+          setPassword("");
+          setState(data.statusCode);
+        }
+      });
   }
 
   //Se retorna el componente ContextProvider con las funciones y parametros antes indicados
@@ -92,6 +78,7 @@ export function DataContextProvider(props) {
         username,
         password,
         id,
+        state,
         imagePath,
         signUp,
         logIn,
