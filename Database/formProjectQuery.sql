@@ -12,4 +12,4 @@ CREATE TABLE users(
     PRIMARY KEY (id,username)
 );
 ALTER TABLE users;
-ALTER COLUMN name SET DEFAULT username;
+ALTER COLUMN name SET DEFAULT username; 

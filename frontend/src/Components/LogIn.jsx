@@ -157,4 +157,5 @@ function LogIn() {
   );
 }
 
+//Se exporta el componente
 export default LogIn;
