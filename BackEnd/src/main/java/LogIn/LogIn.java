@@ -61,21 +61,19 @@ public class LogIn extends HttpServlet {
                     out.println(String.format(formatJson,"response","fail"));
                     out.println(String.format(formatJson,"statusCode","3"));
                     out.println(String.format(formatJson,"message",ex));
-                    out.flush();
                 }
             }else{
                 out.println(String.format(formatJson,"response","fail"));
                 out.println(String.format(formatJson,"statusCode","2"));
                 out.println(String.format(formatJson,"message","User not found"));
-                out.flush();
             }
         }else{
             out.println(String.format(formatJson,"response","fail"));
             out.println(String.format(formatJson,"statusCode","3"));
             out.println(String.format(formatJson, "message", _context.GetLastError()));
-            out.flush();
         }
         out.println("}");
+        out.flush();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
