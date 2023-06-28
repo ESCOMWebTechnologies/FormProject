@@ -41,8 +41,6 @@ CREATE TABLE answer (
     CONSTRAINT FK_answer_user FOREIGN KEY (userId) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
     CONSTRAINT FK_answer_question FOREIGN KEY (questionId) REFERENCES question(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
-'S03Q2nNu37S8716p', 'w36bX42k0Eo6016Q', '12', '', '12'
-'8h1BP601657ilT46', '0Ekt8bW8i5Q384L4', '1', '', '1'
 
 
 select * from question
