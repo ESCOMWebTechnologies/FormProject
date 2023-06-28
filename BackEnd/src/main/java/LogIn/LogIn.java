@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import Database.*;
 import java.sql.*;
+import Utilities.*;
+import java.util.Vector;
 
 /**
  *
@@ -34,12 +36,12 @@ public class LogIn extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.addHeader("Access-Control-","*");
+        //response.addHeader("Access-Control-","*");
         _context = new ApplicationDatabaseContext();
         Boolean connected = _context.CreateConnection();
-        String formatJson = "\"%s\":\"%s\",";
         PrintWriter out = response.getWriter();
-        out.println("{");
+        String path = this.getServletContext().getRealPath("/sources/json/ResponseJSON.json");
+        JSONFormat format = new JSONFormat(path);
         if(connected){
             String username = request.getParameter("username"), password = request.getParameter("password");
             if(username != null && password != null){
@@ -47,33 +49,29 @@ public class LogIn extends HttpServlet {
                     ResultSet responses = _context.FirstOrDefault("", "users", String.format("username='%s' and password='%s';",username,password));
                     User user = _context.GetUser(responses);
                     if(responses != null){
-                        out.println(String.format(formatJson,"response","ok"));
-                        out.println(String.format(formatJson,"statusCode","1"));
-                        out.println("\"message\" : "+user.GetAllUserInformation());
-                        out.flush();
+                        String resp = format.GetResponseInJson("ok","1",user.GetAllUserInformation());
+                        if (resp == null) out.println(format.GetLastError());
+                        else out.println(resp);
                     }else{
-                        out.println(String.format(formatJson,"response","fail"));
-                        out.println(String.format(formatJson,"statusCode","2"));
-                        out.println(String.format(formatJson,"message","User not found"));
-                        out.flush();
+                        String resp = format.GetResponseInJson("fail","2","User not found");
+                        if (resp == null) out.println(format.GetLastError());
+                        else out.println(resp);
                     }
                 }catch(Exception ex){
-                    out.println(String.format(formatJson,"response","fail"));
-                    out.println(String.format(formatJson,"statusCode","3"));
-                    out.println(String.format(formatJson,"message",ex));
+                    String resp = format.GetResponseInJson("fail","3",ex.getMessage());
+                    if (resp == null) out.println(format.GetLastError());
+                    else out.println(resp);
                 }
             }else{
-                out.println(String.format(formatJson,"response","fail"));
-                out.println(String.format(formatJson,"statusCode","2"));
-                out.println(String.format(formatJson,"message","User not found"));
+                String resp = format.GetResponseInJson("fail","2","User not found");
+                    if (resp == null) out.println(format.GetLastError());
+                    else out.println(resp);
             }
         }else{
-            out.println(String.format(formatJson,"response","fail"));
-            out.println(String.format(formatJson,"statusCode","3"));
-            out.println(String.format(formatJson, "message", _context.GetLastError()));
+            String resp = format.GetResponseInJson("fail","3",_context.GetLastError());
+            if (resp == null) out.println(format.GetLastError());
+            else out.println(resp);
         }
-        out.println("}");
-        out.flush();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

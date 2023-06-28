@@ -28,6 +28,8 @@ public class Register extends HttpServlet {
         _context = new ApplicationDatabaseContext();
         Boolean connected = _context.CreateConnection();
         PrintWriter out = response.getWriter();
+        String path = this.getServletContext().getRealPath("/sources/json/ResponseJSON.json");
+        JSONFormat format = new JSONFormat(path);
         if(connected){
             try{
                 String name = request.getParameter("name"), surname = request.getParameter("surname"), username = request.getParameter("username"), password = request.getParameter("password");
@@ -36,16 +38,19 @@ public class Register extends HttpServlet {
                     Boolean registered = _context.RegisterUser(name, surname, username, password);
                     if(registered){
                         User userRegistered = _context.GetUser(_context.FirstOrDefault("", "users", String.format("username='%s' and password='%s';",username,password)));
-                        out.println(String.format("{\n\t\"response\" : \"ok\",\n\t\"statusCode\" : \"1\",\n\t\"message\" :"+userRegistered.GetAllUserInformation()+"\n}"));
-                        out.flush();
+                        String resp = format.GetResponseInJson("ok","1",userRegistered.GetAllUserInformation());
+                        if (resp == null) out.println(format.GetLastError());
+                        else out.println(resp);
                     }else{
-                        out.println(String.format("{\n\t\"response\" : \"ok\",\n\t\"statusCode\" : \"2\",\n\t\"message\" : \""+_context.GetLastError()+"\" \n}"));
-                        out.flush();
+                        String resp = format.GetResponseInJson("ok","2",_context.GetLastError());
+                        if (resp == null) out.println(format.GetLastError());
+                        else out.println(resp);
                     }
                 }
             }catch(Exception ex){
-                out.println(String.format("{\n\t\"response\" : \"ok\",\n\t\"statusCode\" : \"2\",\n\t\"message\" : \""+ex.getMessage()+"\" \n}"));
-                out.flush();
+                String resp = format.GetResponseInJson("fail","3",ex.getMessage());
+                if (resp == null) out.println(format.GetLastError());
+                else out.println(resp);
             }
         }
     }

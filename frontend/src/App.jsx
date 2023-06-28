@@ -1,9 +1,6 @@
 //Importacion del componente React
 import React from "react";
 
-//Importacion del componente ReactDOM
-import ReactDOM from "react-dom/client";
-
 //Importacion del componente createBrowserRouter y RouterProvider
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -23,8 +20,14 @@ import ErrorPage from "./Components/ErrorPage.jsx";
 //Importacion del componente SignIn
 import LogIn from "./Components/LogIn.jsx";
 
+import AnswerForm from "./Components/FormComponents/AnswerForm.jsx";
+
 //Importacion del componente SignUp
 import SignUp from "./Components/SignUp.jsx";
+import MainMenu from "./Components/MainMenu.jsx";
+import EditForm from "./Components/FormComponents/EditForm.jsx";
+import CreateForm from "./Components/FormComponents/CreateForm.jsx";
+import {createRoot} from "react-dom/client";
 
 //Se crea el objeto BrowserRouter
 const router = createBrowserRouter([
@@ -40,22 +43,37 @@ const router = createBrowserRouter([
         element: <LogIn />,
       },
       {
-        //path: "SignUp",
+        //path: "SignUp",EditForm
         path: "/FormProject/SignUp/",
         element: <SignUp />,
+      },
+      {
+        path: "/FormProject/Forms/",
+        element: <MainMenu />,
+      },
+      {
+        path: "/FormProject/Forms/CreateForm/",
+        element: <CreateForm />,
+      },
+      {
+        path: "/FormProject/Forms/EditForm/:id",
+        element: <EditForm />,
+      },
+      {
+        path: "/FormProject/Forms/AnswerForm/:id",
+        element: <AnswerForm />,
       },
     ],
   },
 ]);
 
 //Se crea el objeto root y se renderiza en la pagina html donde se encuentra el id App
-ReactDOM.createRoot(document.getElementById("App")).render(
-  //Se llama la herramienta de ayuda React.StrictMode
+createRoot(document.getElementById("App")).render(
   <React.StrictMode>
-    {/* Se manda a llamar el contexto para pasarlo a los hijos*/}
     <DataContextProvider>
-      {/* Se manda a llamar el RouterProvider para hacer el ruteo a los diferentes sitios*/}
-      <RouterProvider router={router} />
+      <RouterProvider router={router}>
+        <Home />
+      </RouterProvider>
     </DataContextProvider>
   </React.StrictMode>
 );

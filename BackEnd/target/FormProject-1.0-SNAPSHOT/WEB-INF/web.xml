@@ -15,9 +15,37 @@
         <servlet-name>Register</servlet-name>
         <servlet-class>LogIn.Register</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreateForm</servlet-name>
+        <servlet-class>Form.CreateForm</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditForm</servlet-name>
+        <servlet-class>Form.EditForm</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetForms</servlet-name>
+        <servlet-class>Form.GetForms</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetForm</servlet-name>
+        <servlet-class>Form.GetForm</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RemoveForm</servlet-name>
+        <servlet-class>Form.RemoveForm</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateQuestion</servlet-name>
+        <servlet-class>Question.CreateQuestion</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateAnswer</servlet-name>
+        <servlet-class>Answer.CreateAnswer</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LogIn</servlet-name>
-        <url-pattern>/LoginForm</url-pattern>
+        <url-pattern>/api/LoginForm</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>MainMenu</servlet-name>
@@ -29,7 +57,35 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Register</servlet-name>
-        <url-pattern>/Register</url-pattern>
+        <url-pattern>/api/Register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateForm</servlet-name>
+        <url-pattern>/Forms/api/CreateForm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditForm</servlet-name>
+        <url-pattern>/Forms/api/EditForm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetForms</servlet-name>
+        <url-pattern>/Forms/api/GetForms</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetForm</servlet-name>
+        <url-pattern>/Forms/api/GetForm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveForm</servlet-name>
+        <url-pattern>/Forms/api/RemoveForm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateQuestion</servlet-name>
+        <url-pattern>/Forms/api/CreateQuestion</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateAnswer</servlet-name>
+        <url-pattern>/Forms/api/CreateAnswer</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

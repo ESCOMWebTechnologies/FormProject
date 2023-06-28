@@ -53,7 +53,7 @@ function SignUp() {
         Swal.fire({
           title: "<strong>Oops!</strong>",
           icon: "warning",
-          html: "The current account <b>alredy exist.</b>",
+          html: "The current account <b>Already exist.</b>",
         });
         setName("");
         setSurname("");
@@ -97,8 +97,7 @@ function SignUp() {
                       type="text"
                       {...register("name", {
                         required: true,
-                        maxLength: 20,
-                        pattern: /^([A-ZÑa-zñáéíóúÁÉÍÓÚ']|[^ ])+$/,
+                        maxLength: 20
                       })}
                       id="name"
                       autoComplete="off"
@@ -132,7 +131,6 @@ function SignUp() {
                       {...register("surname", {
                         required: true,
                         maxLength: 20,
-                        pattern: /^([A-ZÑa-zñáéíóúÁÉÍÓÚ']|[^ ])+$/,
                       })}
                       id="surname"
                       className="form-control rounded-3"
@@ -166,7 +164,6 @@ function SignUp() {
                       required: true,
                       maxLength: 16,
                       minLength: 3,
-                      pattern: /^([A-Za-z0-9_-]|[^ ]){3,16}$/,
                     })}
                     id="username"
                     autoComplete="off"
@@ -200,13 +197,6 @@ function SignUp() {
                   <div className="form-floating">
                     <input
                       type="password"
-                      {...register("password", {
-                        required: true,
-                        minLength: 8,
-                        maxLength: 20,
-                        pattern:
-                          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,20}$/,
-                      })}
                       id="password"
                       className="form-control rounded-3"
                       placeholder="password"
@@ -215,41 +205,12 @@ function SignUp() {
                         setPassword(e.target.value);
                       }}
                     />
-                    <label htmlFor="password">Password</label>
-                    {errors.password?.type === "required" && (
-                      <small> The Password is required</small>
-                    )}
-                    {errors.password?.type === "maxLength" && (
-                      <small> The max leght is 20</small>
-                    )}
-                    {errors.password?.type === "minLength" && (
-                      <small> The min leght is 8</small>
-                    )}
-                    {errors.password?.type === "pattern" && (
-                      <small>
-                        The format of the password needs:
-                        <ul>
-                          <li>At least one capital letter.</li>
-                          <li>At least one lower letter.</li>
-                          <li>At least one digit.</li>
-                          <li>No blank spaces.</li>
-                          <li>At least one special character</li>
-                        </ul>
-                      </small>
-                    )}
                   </div>
                 </div>
                 <div className="ms-3">
                   <div className="form-floating">
                     <input
                       type="password"
-                      {...register("confirmPassword", {
-                        required: true,
-                        minLength: 8,
-                        maxLength: 20,
-                        pattern:
-                          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,20}$/,
-                      })}
                       id="confirmPassword"
                       className="form-control rounded-3"
                       placeholder="Confirm Password"
@@ -258,28 +219,6 @@ function SignUp() {
                         setPassword2(e.target.value);
                       }}
                     />
-                    <label htmlFor="confirmPassword">Confirm password</label>
-                    {errors.confirmPassword?.type === "required" && (
-                      <small> The Confirm Password is required</small>
-                    )}
-                    {errors.confirmPassword?.type === "maxLength" && (
-                      <small> The max leght is 20</small>
-                    )}
-                    {errors.confirmPassword?.type === "minLength" && (
-                      <small> The min leght is 8</small>
-                    )}
-                    {errors.confirmPassword?.type === "pattern" && (
-                      <small>
-                        The format of the password needs:
-                        <ul>
-                          <li>At least one capital letter.</li>
-                          <li>At least one lower letter.</li>
-                          <li>At least one digit.</li>
-                          <li>No blank spaces.</li>
-                          <li>At least one special character</li>
-                        </ul>
-                      </small>
-                    )}
                   </div>
                 </div>
               </div>

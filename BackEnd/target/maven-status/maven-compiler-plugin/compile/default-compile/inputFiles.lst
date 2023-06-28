@@ -1,7 +1,21 @@
-C:\Users\ricar\Desktop\Escuelas\ESCOM\Semestre 4\Tecnologias para el desarrollo web\Git-FormProyect\FormProject\BackEnd\src\main\java\LogIn\Register.java
-C:\Users\ricar\Desktop\Escuelas\ESCOM\Semestre 4\Tecnologias para el desarrollo web\Git-FormProyect\FormProject\BackEnd\src\main\java\LogIn\LogIn.java
-C:\Users\ricar\Desktop\Escuelas\ESCOM\Semestre 4\Tecnologias para el desarrollo web\Git-FormProyect\FormProject\BackEnd\src\main\java\escomwebtechnologies\formproject\MainMenu.java
-C:\Users\ricar\Desktop\Escuelas\ESCOM\Semestre 4\Tecnologias para el desarrollo web\Git-FormProyect\FormProject\BackEnd\src\main\java\Database\ApplicationDatabaseContext.java
-C:\Users\ricar\Desktop\Escuelas\ESCOM\Semestre 4\Tecnologias para el desarrollo web\Git-FormProyect\FormProject\BackEnd\src\main\java\Database\Role.java
-C:\Users\ricar\Desktop\Escuelas\ESCOM\Semestre 4\Tecnologias para el desarrollo web\Git-FormProyect\FormProject\BackEnd\src\main\java\Utilities\CifrateData.java
-C:\Users\ricar\Desktop\Escuelas\ESCOM\Semestre 4\Tecnologias para el desarrollo web\Git-FormProyect\FormProject\BackEnd\src\main\java\Database\User.java
+/home/miku/Codigos/FormProject/BackEnd/src/main/java/LogIn/LogIn.java
+/home/miku/Codigos/FormProject/BackEnd/src/main/java/Utilities/OutputReader.java
+/home/miku/Codigos/FormProject/BackEnd/src/main/java/Form/RemoveForm.java
+/home/miku/Codigos/FormProject/BackEnd/src/main/java/Form/GetForms.java
+/home/miku/Codigos/FormProject/BackEnd/src/main/java/Form/CreateForm.java
+/home/miku/Codigos/FormProject/BackEnd/src/main/java/escomwebtechnologies/formproject/MainMenu.java
+/home/miku/Codigos/FormProject/BackEnd/src/main/java/Question/CreateQuestion.java
+/home/miku/Codigos/FormProject/BackEnd/src/main/java/Utilities/CodificationMap.java
+/home/miku/Codigos/FormProject/BackEnd/src/main/java/Utilities/IdCreator.java
+/home/miku/Codigos/FormProject/BackEnd/src/main/java/Form/GetForm.java
+/home/miku/Codigos/FormProject/BackEnd/src/main/java/Utilities/JSONFormat.java
+/home/miku/Codigos/FormProject/BackEnd/src/main/java/Database/User.java
+/home/miku/Codigos/FormProject/BackEnd/src/main/java/Utilities/Pair.java
+/home/miku/Codigos/FormProject/BackEnd/src/main/java/Answer/CreateAnswer.java
+/home/miku/Codigos/FormProject/BackEnd/src/main/java/Database/Question.java
+/home/miku/Codigos/FormProject/BackEnd/src/main/java/Database/Form.java
+/home/miku/Codigos/FormProject/BackEnd/src/main/java/LogIn/Register.java
+/home/miku/Codigos/FormProject/BackEnd/src/main/java/Utilities/CifrateData.java
+/home/miku/Codigos/FormProject/BackEnd/src/main/java/Database/ApplicationDatabaseContext.java
+/home/miku/Codigos/FormProject/BackEnd/src/main/java/Form/EditForm.java
+/home/miku/Codigos/FormProject/BackEnd/src/main/java/Form/GetFormResponse.java

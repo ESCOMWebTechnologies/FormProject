@@ -28,7 +28,7 @@ function ErrorPage() {
         </p>
         <div className="d-grid gap-2 d-sm-flex justify-content-sm-center">
           <Link
-            to={"/"}
+            to={"/FormProject/"}
             className="btn btn-outline-primary btn-lg"
             role="button"
           >

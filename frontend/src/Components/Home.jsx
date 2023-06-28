@@ -96,7 +96,9 @@ function Home() {
     <>
       <header className="d-flex flex-wrap align-items-center justify-content-md-between justify-content-center border-bottom">
         <div className="col-md-3 mb-md-0 ms-5 me-5 mb-3">
-          <span className="fs-6">Easy Creator Forms</span>
+          <Link to={"/FormProject/"}>
+            Form creator
+          </Link>
         </div>
         <div className="col-md-5 text-end ms-5 mb-2 mt-2">
           <ul className="nav col-12 col-md-auto justify-content-end">
@@ -210,9 +212,9 @@ function Home() {
 
       <article>{childsToRender()}</article>
 
-      <footer className="d-flex flex-wrap align-items-center justify-content-md-between justify-content-center border-top">
+      <footer className="d-flex flex-wrap align-items-center justify-content-md-between justify-content-center border-top fixed-bottom">
         <div className="col-md-3 mb-md-0 ms-5 me-5 mt-1">
-          <span className="text-body-secondary">© 2023 Company, Inc</span>
+          <span className="text-body-secondary">© 2023 Form project Company, Inc</span>
         </div>
         <ul className="nav col-4 col-md-auto justify-content-end mt-1 me-4">
           <li>

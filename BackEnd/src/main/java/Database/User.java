@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package Database;
-
+import Utilities.Pair;
+import java.util.*;
 /**
  *
  * @author miku
@@ -80,7 +81,13 @@ public class User {
         return (_username != null && _password != null) ? _id : -1 ;
     }
     
-    public String GetAllUserInformation(){
-        return String.format("{\n\t\"name\" : \"%s\",\n\t\"username\" : \"%s\",\n\t\"surname\" : \"%s\",\n\t\"imagePath\" : \"%s\"\n}",_name,_username,_surname,_imagePath);
+    public Vector<Pair<String,String>> GetAllUserInformation(){
+        Vector<Pair<String,String>> elements = new Vector<Pair<String,String>>();
+        elements.add(new Pair<String,String>("username",_username));
+        elements.add(new Pair<String,String>("name",_name));
+        elements.add(new Pair<String,String>("surname",_surname));
+        elements.add(new Pair<String,String>("id",String.valueOf(_id)));
+        elements.add(new Pair<String,String>("imagePath",_imagePath));
+        return elements;
     }
 }

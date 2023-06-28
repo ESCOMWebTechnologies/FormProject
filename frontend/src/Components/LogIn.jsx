@@ -2,17 +2,18 @@
 import React, { useContext, useState } from "react";
 
 //Importacion del componente Outlet
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
 //Importacion del contexto de la aplicacion web
-import { DataContext } from "../Context/DataContext.jsx";
+import { DataContext, DataContextProvider } from "../Context/DataContext.jsx";
 
 //Importacion del componente useForm
 import { useForm } from "react-hook-form";
 
-//Importacion del componente Swal 
+//Importacion del componente Swal
 import Swal from "sweetalert2";
 
+import { useNavigate } from 'react-router-dom';
 //Se crea la funcion signIn
 function LogIn() {
   //Se importan los parametros y funciones necesarias para el signIn del contexto
@@ -20,7 +21,9 @@ function LogIn() {
   const [password, setPassword] = useState("");
   const { logIn } = useContext(DataContext);
   const { state } = useContext(DataContext);
-  
+  const navigate = useNavigate();
+  const dataContext = useContext(DataContext);
+  const {setUserData} = dataContext;
   //Se crea un objeto del tipo useForm y se importan las funciones a utilizar
   const {
     register,
@@ -29,18 +32,19 @@ function LogIn() {
   } = useForm();
 
   //Se crea una funcion para manejar el comportamiento del formuario
-  const onSubmit = () => {
+  const onSubmit = async () => {
     //Se verifica que el usuario exista
-    logIn(username, password);
-    console.log(state);
+    await logIn(username, password);
     //En caso de existir se limpia el formulario y se manda un mensaje de alerta
     if (state === "1") {
       Swal.fire({
-        title: "<strong>Welcome</strong>",
+        title: "<strong>Welcome</strong> "+username,
         icon: "success",
       });
       setUsername("");
       setPassword("");
+      //Aplicar redirect a la página princial
+      navigate("/FormProject/Forms");
     } else if (state === "2") {
       Swal.fire({
         title: "<strong>Oops!</strong>",
@@ -79,7 +83,6 @@ function LogIn() {
                   {...register("username", {
                     required: true,
                     maxLength: 16,
-                    pattern: /^([A-Za-z0-9_-]|[^ ]){3,16}$/,
                   })}
                   id="username"
                   autoComplete="off"
@@ -110,10 +113,8 @@ function LogIn() {
                   type="password"
                   {...register("password", {
                     required: true,
-                    minLength: 8,
+                    minLength: 4,
                     maxLength: 20,
-                    pattern:
-                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])([A-Za-z\d$@$!%*?&]|[^ ]){8,20}$/,
                   })}
                   id="password"
                   className="form-control rounded-3"
@@ -146,10 +147,7 @@ function LogIn() {
                   </small>
                 )}
               </div>
-              <button
-                className="w-100 mb-2 btn btn-lg rounded-3 btn-primary"
-                type="submit"
-              >
+              <button className="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">
                 Log In
               </button>
             </form>
