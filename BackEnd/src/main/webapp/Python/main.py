@@ -31,12 +31,10 @@ try:
 except Exception as ex:
     print(str(ex))
     exit()
-print("here")
 def CheckAnswer(answer:str, id:str, semaphore:Semaphore ):
     new_doc = nlp(answer)
     similarity = [new_doc.similarity(doc[i]) for i in range(1, len(doc))]
     try:
-        print(int(max(similarity)*100))
         semaphore.acquire()
         cursor.execute("UPDATE answer SET value=%s WHERE id=%s AND value < 90",(int(max(similarity)*100),id))
         database.commit()
@@ -44,20 +42,21 @@ def CheckAnswer(answer:str, id:str, semaphore:Semaphore ):
         print(str(ex))
     finally:
         semaphore.release()
-print("Getting args")
 parser = argparse.ArgumentParser(description='Procesar argumentos')
 parser.add_argument('--formId', type=str, help='Type the Form Id')
 parser.add_argument('--questionId', type=str, help='Type the Question Id')
-parser.add_argument('--question', type=str, help='Type the Question Id')
 args = parser.parse_args()
-print(args)
 cursor.execute("SELECT answer FROM answer WHERE value > 70 AND questionId='{0}'".format(args.questionId))
 temp = cursor.fetchall()
 answers = list()
 for i in temp:
     answers.append(i[0])
-
-question = args.question
+cursor.execute("SELECT question FROM question WHERE id='{0}'".format(args.questionId))
+temp = cursor.fetchall()
+question = ""
+for i in temp:
+    question = i[0]
+print(question)
 context = question + " " + " ".join(answers)
 doc = nlp(context)
 cursor.execute("SELECT answer, id FROM answer WHERE questionId='{0}'".format(args.questionId))

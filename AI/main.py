@@ -48,7 +48,6 @@ def CheckAnswer(answer:str, id:str, semaphore:Semaphore ):
 parser = argparse.ArgumentParser(description='Procesar argumentos')
 parser.add_argument('--formId', type=str, help='Type the Form Id')
 parser.add_argument('--questionId', type=str, help='Type the Question Id')
-parser.add_argument('--question', type=str, help='Type the Question Id')
 args = parser.parse_args()
 cursor.execute("SELECT answer FROM answer WHERE value > 70 AND questionId='{0}'".format(args.questionId))
 log.write("Getting data...\n")
@@ -57,7 +56,6 @@ answers = list()
 for i in temp:
     answers.append(i[0])
 
-question = args.question
 context = question + " " + " ".join(answers)
 log.write("Context created...\n")
 doc = nlp(context)

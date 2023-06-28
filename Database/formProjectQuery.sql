@@ -11,24 +11,16 @@ CREATE TABLE users(
     CONSTRAINT PrimaryKeyUsers
     PRIMARY KEY (id,username)
 );
-select id, formName, questionNumber, creationDate, answerNumber from forms WHERE id='wu482163L4onB6ev'
-select q.id,q.question, q.sourcePath from question q inner join forms f on q.formId = f.id where f.id=''
-ALTER TABLE users ALTER COLUMN name SET DEFAULT username;
 CREATE TABLE forms (
     id CHAR(16) UNIQUE NOT NULL,
     formName CHAR(255) NOT NULL,
     questionNumber INT NOT NULL DEFAULT 1,
-    creationDate DATE DEFAULT CURRENT_TIMESTAMP,
+    creationDate DATE,
     userId INT NOT NULL,
     answerNumber INT DEFAULT 0,
     PRIMARY KEY (id),
-    CONSTRAINT FK_form_forms FOREIGN KEY (userId) REFERENCES users(id)
+    CONSTRAINT FK_form_forms FOREIGN KEY (userId) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
-select * from forms
-select * from question where formId = 'P344N43rno4114Jo';
-3Dv4747WS1oRwMl
-m53bS2VE05m31430
-select * from answer where questionId = 'C15p04xl27Q6f5l1'
 CREATE TABLE question (
     id CHAR(16) UNIQUE NOT NULL,
     formId CHAR(16) NOT NULL,
@@ -36,9 +28,8 @@ CREATE TABLE question (
     sourcePath CHAR(255),
     question CHAR(255) NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT FK_question_form FOREIGN KEY (formId) REFERENCES forms(id)
+    CONSTRAINT FK_question_form FOREIGN KEY (formId) REFERENCES forms(id) ON UPDATE CASCADE ON DELETE CASCADE
 );
-select * from forms;
 CREATE TABLE answer (
     id CHAR(16) UNIQUE NOT NULL,
     userId INT NOT NULL,
@@ -47,6 +38,6 @@ CREATE TABLE answer (
     responseDate DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     value int default 0,
     PRIMARY KEY (id),
-    CONSTRAINT FK_answer_user FOREIGN KEY (userId) REFERENCES users(id),
-    CONSTRAINT FK_answer_question FOREIGN KEY (questionId) REFERENCES question(id)
+    CONSTRAINT FK_answer_user FOREIGN KEY (userId) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    CONSTRAINT FK_answer_question FOREIGN KEY (questionId) REFERENCES question(id) ON UPDATE CASCADE ON DELETE CASCADE
 );

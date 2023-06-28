@@ -148,7 +148,7 @@ public class CreateAnswer extends HttpServlet {
 
     private boolean ExecuteScript(String realPath, String formId, String question, String questionId) throws IOException, InterruptedException {
         String pythonScriptPath = realPath;
-        String[] command = {"python", pythonScriptPath, "--formId", formId, "--question", question, "--questionId", questionId};
+        String[] command = {"python", pythonScriptPath, "--formId", formId, "--questionId", questionId};
         ProcessBuilder processBuilder = new ProcessBuilder(command);
         processBuilder.redirectErrorStream(true);
         processBuilder.redirectOutput(ProcessBuilder.Redirect.PIPE);

@@ -81,8 +81,10 @@ const CreateForm = () => {
                             .then(responseQuestion => {
                                 if(responseQuestion.statusCode === "1"){
                                     questionId = responseQuestion.message;
+                                    console.log(answerData);
                                     if(questionId != null || questionId != ""){
                                         let answers = answerData[`question${counter}`];
+                                        console.log(answers);
                                         for(let answer of answers.answers){
                                             let newAnswer = CodificateText(answer);
                                             if(newAnswer != "")
