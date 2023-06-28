@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package Utilities;
+import Database.Answer;
 import Database.Form;
 import Database.Question;
 import java.io.BufferedReader;
@@ -115,6 +116,107 @@ public class JSONFormat {
                     responses += String.format("\"id\":\"%s\",",question.GetId());
                     responses += String.format("\"question\":\"%s\",",question.GetQuestion());
                     responses += String.format("\"sourcePath\":\"%s\"",question.GetSourcePath());
+                    if(i < end)
+                        responses += "},\n";
+                    else
+                        responses += "}";
+                    i++;
+                }
+                if(responses.charAt(responses.length() - 2) == ','){
+                    String originalString = responses;
+                    responses = originalString.substring(0, originalString.length() - 2);
+                }
+                responses += "]\n";
+                String st = String.format("\n\"message\" : {%s}\n",responses);
+                json = json.replace("\"message\" : {}",st);
+                return json;
+            }catch(Exception ex){
+                _lastError = ex.getMessage();
+            }
+        }else{
+            _lastError = "All information is missing";
+        }
+        return "";
+    }
+    public String GetFormQuestionAndAnswers(String message, String code, Pair<Form,Vector<Pair<Question,Vector<Answer>>>> data){
+        if(message != null && code != null && data != null){
+            try{
+                String json = _template.replace("\"response\" : \"\"",String.format("\n\"response\" : \"%s\"",message));
+                json = json.replace("\"statusCode\" : \"\"",String.format("\n\"statusCode\" : \"%s\"",code));
+                String response = "\"%s\":\"%s\"";
+                String responses = "";
+                responses += String.format("\"formName\":\"%s\",\n",data.first.GetFormName());
+                responses += String.format("\"questionNumber\":\"%d\",\n",data.first.GetQuestionNumber());
+                Vector<Pair<Question,Vector<Answer>>> questions = data.second;
+                responses += "\"questions\":[";
+                int end = questions.size(), i = 0;
+                for(Pair<Question,Vector<Answer>> dataQuestion : questions){
+                    responses += "{\n";
+                    responses += String.format("\"id\":\"%s\",", dataQuestion.first.GetId());
+                    responses += String.format("\"question\":\"%s\",", dataQuestion.first.GetQuestion());
+                    responses += String.format("\"sourcePath\":\"%s\",", dataQuestion.first.GetSourcePath());
+                    String responses2 = "";
+                    Vector<Answer> answers = dataQuestion.second;
+                    responses += "\"answers\":[";
+                    int end2 = answers.size(), i2 = 0;
+                    for(Answer answer : answers){
+                        responses2 += "{\n";
+                        responses2 += String.format("\"id\":\"%s\",",answer.GetId());
+                        responses2 += String.format("\"answer\":\"%s\",",answer.GetAnswer());
+                        responses2 += String.format("\"value\":\"%s\",",answer.GetValue());
+                        responses2 += String.format("\"userId\":\"%s\"",answer.GetUserId());
+                        if(i2 < end2)
+                            responses2 += "},\n";
+                        else
+                            responses2 += "}";
+                        i2++;
+                    }
+                    if(responses2.charAt(responses2.length() - 2) == ','){
+                        String originalString = responses2;
+                        responses2 = originalString.substring(0, originalString.length() - 2);
+                    }
+                    responses += responses2;
+                    responses += "]\n";
+                    if(i < end)
+                        responses += "},\n";
+                    else
+                        responses += "}";
+                    i++;
+                }
+                if(responses.charAt(responses.length() - 2) == ','){
+                    String originalString = responses;
+                    responses = originalString.substring(0, originalString.length() - 2);
+                }
+                responses += "]\n";
+                String st = String.format("\n\"message\" : {%s}\n",responses);
+                json = json.replace("\"message\" : {}",st);
+                return json;
+            }catch(Exception ex){
+                _lastError = ex.getMessage();
+            }
+        }else{
+            _lastError = "All information is missing";
+        }
+        return "";
+    }
+    public String GetQuestionAndAnswers(String message, String code, Pair<Question,Vector<Answer>> data){
+        if(message != null && code != null && data != null){
+            try{
+                String json = _template.replace("\"response\" : \"\"",String.format("\n\"response\" : \"%s\"",message));
+                json = json.replace("\"statusCode\" : \"\"",String.format("\n\"statusCode\" : \"%s\"",code));
+                String response = "\"%s\":\"%s\"";
+                String responses = "";
+                responses += String.format("\"questionId\":\"%s\",\n",data.first.GetId());
+                responses += String.format("\"question\":\"%s\",\n",data.first.GetQuestion());
+                Vector<Answer> answers = data.second;
+                responses += "\"answers\":[";
+                int end = answers.size(), i = 0;
+                for(Answer answer : answers){
+                    responses += "{\n";
+                    responses += String.format("\"id\":\"%s\",",answer.GetId());
+                    responses += String.format("\"answer\":\"%s\",",answer.GetAnswer());
+                    responses += String.format("\"value\":\"%s\",",answer.GetValue());
+                    responses += String.format("\"userId\":\"%s\"",answer.GetUserId());
                     if(i < end)
                         responses += "},\n";
                     else

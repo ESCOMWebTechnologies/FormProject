@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.sql.*;
 import java.util.*;
 import Utilities.*;
+import Database.*;
 
 /**
  *
@@ -452,6 +453,74 @@ public class ApplicationDatabaseContext implements Serializable {
             _lastError = "Information not provided";
         }
         return "";
+    }
+    public Pair<Question,Vector<Answer>> GetQuestionR(int userId, String questionId){
+        try{
+            String query = String.format("select id, question, sourcePath from question WHERE id='%s'",questionId);
+            _resultSet = null;
+            _resultSet = _statementQuery.executeQuery(query);
+            _resultSet.next();
+            Question question = new Question(_resultSet.getString(1),_resultSet.getString(2),"");
+            Vector<Answer> answers = new Vector<Answer>();
+            _resultSet = null;
+            query = String.format("select a.id, a.answer, a.value from answer a inner join question q on a.questionId = q.id where a.questionId='%s'",questionId);
+            _resultSet = _statementQuery.executeQuery(query);
+            while(_resultSet.next()) answers.add(new Answer(_resultSet.getString(1),_resultSet.getString(2),_resultSet.getInt(3),userId));
+            return new Pair<Question,Vector<Answer>>(question,answers);
+        }catch(Exception ex){
+            _lastError = ex.getMessage();
+        }
+        return new Pair<Question,Vector<Answer>>();
+    }
+    public Pair<Form,Vector<Pair<Question,Vector<Answer>>>> GetAllForm(int userId, String formId){
+        try{
+            if(formId != null){
+                try{
+                    String query = String.format("select id, formName, questionNumber, creationDate, answerNumber from forms WHERE id='%s'",formId);
+                    _resultSet = null;
+                    _resultSet = _statementQuery.executeQuery(query);
+                    Form form = new Form();
+                    _resultSet.next();
+                    form.GetForm(_resultSet);
+                    Vector<Question> questions = new Vector<Question>();
+                    _resultSet = null;
+                    query = String.format("select q.id, q.question, q.sourcePath from question q inner join forms f on q.formId = f.id where f.id='%s'",formId);
+                    _resultSet = _statementQuery.executeQuery(query);
+                    while(_resultSet.next()) questions.add(new Question(_resultSet.getString(1),_resultSet.getString(2),_resultSet.getString(3)));
+                    Vector<Pair<Question,Vector<Answer>>> data = new Vector<Pair<Question,Vector<Answer>>>();
+                    for(Question question : questions) data.add(GetQuestionR(userId, question.GetId()));
+                    return new Pair<Form,Vector<Pair<Question,Vector<Answer>>>>(form, data);
+                }catch(Exception ex){
+                    _lastError = ex.getMessage();
+                }
+            }else{
+                _lastError = "No information povided";
+            }
+        }catch(Exception ex){
+            _lastError = ex.getMessage();
+        }
+        return new Pair<Form,Vector<Pair<Question,Vector<Answer>>>>();
+    }
+    public Boolean RemoveQuestion(String questionId, int userId){
+        if(questionId == null){
+            _lastError = "No username or password provided";
+        }else{
+            try{
+                String query = "DELETE FROM question WHERE id=? and EXISTS(SELECT * FROM users WHERE id=?)";
+                PreparedStatement statement = _connection.prepareStatement(query);
+                statement.setString(1,questionId);
+                statement.setInt(2, userId);
+                int rowsAffected = statement.executeUpdate();
+                if(rowsAffected > 0){
+                    return true;
+                }else{
+                    _lastError = "Form not removed";
+                }
+            }catch(Exception ex){
+                _lastError = ex.getMessage();
+            }
+        }
+        return false;
     }
     public Pair<Form,Vector<Question>> GetFormQuestions(String formId){
         if(formId != null){
