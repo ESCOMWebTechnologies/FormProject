@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { DataContext } from "../../Context/DataContext.jsx";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const EditForm = () => {
   const navigate = useNavigate();
@@ -61,8 +61,11 @@ const EditForm = () => {
           <input name="formName" placeholder={formData.formName} value={formData.formName} onChange={handleChange} type="text" className="form-control"/>
           <label className="form-label">Question number</label>
           <input name="questionNumber" placeholder={formData.questionNumber} value={formData.questionNumber} onChange={handleChange} type="number" className="form-control"/>
+          <br/>
           <button type="submit" className="btn btn-outline-warning">Submit</button>
       </form>
+      <br/>
+      <Link to={"/FormProject/Forms/"} className="btn btn-outline-success">Return to Main Menu</Link>
     </div>
   );
 };

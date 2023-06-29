@@ -56,8 +56,11 @@ const GetForm = () => {
           <input name="formName" placeholder={formData.formName} value={formData.formName} onChange={handleChange} type="text" className="form-control"/>
           <label className="form-label">Question number</label>
           <input name="questionNumber" placeholder={formData.questionNumber} value={formData.questionNumber} onChange={handleChange} type="number" className="form-control"/>
+          <br/>
           <button type="submit" className="btn btn-outline-warning">Submit</button>
       </form>
+      <br/>
+      <Link to={"/FormProject/Forms/"} className="btn btn-outline-success">Return to Main Menu</Link>
     </div>
   );
 };

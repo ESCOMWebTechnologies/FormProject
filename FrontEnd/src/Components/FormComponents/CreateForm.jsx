@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { DataContext } from "../../Context/DataContext.jsx";
 import Swal from "sweetalert2";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const CreateForm = () => {
     const specialSymbols = {' ': '%20','!': '%21','"': '%22','#': '%23','$': '%24','%': '%25','&': '%26','\'': '%27','(': '%28',')': '%29','*': '%2A','+': '%2B',',': '%2C','-': '%2D','.': '%2E','/': '%2F',':': '%3A',';': '%3B','=': '%3D','?': '%3F','@': '%40','[': '%5B','\\': '%5C',']': '%5D','^': '%5E','_': '%5F','`': '%60','{': '%7B','|': '%7C','}': '%7D','~': '%7E','á': '%C3%A1','é': '%C3%A9','í': '%C3%AD','ó': '%C3%B3','ú': '%C3%BA','ñ': '%C3%B1','Á': '%C3%81','É': '%C3%89','Í': '%C3%8D','Ó': '%C3%93','Ú': '%C3%9A','Ñ': '%C3%91'};
@@ -208,8 +208,11 @@ const CreateForm = () => {
                 <div className="row">
                     {generateQuestionSection()}
                 </div>
+                <br/>
                 <button type="submit" className="btn btn-outline-success">Submit</button>
             </form>
+            <br/>
+            <Link to={"/FormProject/Forms/"} className="btn btn-outline-success">Return to Main Menu</Link>
         </div>
     );
 };
